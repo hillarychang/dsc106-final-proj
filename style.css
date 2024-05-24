@@ -1,0 +1,32 @@
+#container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    border: 2px solid #000;
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+}
+
+.draggable {
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 5px;
+    padding: 5px;
+    position: absolute;
+}
+
+.droppable {
+    border: 2px dashed #000;
+    margin-bottom: 5px;
+    padding: 5px;
+    position: relative;
+}
+
+.dragging {
+    z-index: 999;
+}

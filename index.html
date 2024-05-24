@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag and Drop Game for Basic Racing Rules</title>
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: left;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .box {
+        border: 2px solid black;
+        width: 287px;
+        height: 287px;
+        margin: 15px;
+        position: relative;
+    }
+
+
+    .drop-box {
+        border: 2px solid black;
+        width: 150px; 
+        height: 50px; 
+        position: relative; 
+        bottom: -10px; 
+        left: 50%; 
+        transform: translateX(-50%);
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+    }
+
+    .term-box {
+        border: 2px solid black;
+        background-color: white;
+        width: 150px;
+        height: 50px;
+        margin: 10px;
+        position: relative;
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+    }
+
+    .wide-box {
+        width: 913px;
+        height: 289px; 
+        justify-content: center;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 100px; 
+    }
+
+    .row:last-child {
+        margin-bottom: 0; 
+    }
+    #term-box {
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        flex-wrap: wrap; 
+        padding: 10px; 
+        background-color: #a4c2f4ff; 
+        border-radius: 8px;
+    }
+    #top-row {
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        padding-bottom: 80px;
+    }
+    #middle-row {
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        padding-bottom: 80px;
+    }
+    #bottom-row {
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        padding-bottom: 80px;
+    }
+</style>
+</head>
+<body>
+    <div>
+        <b>Rule Descriptions:</b>
+        <ul>
+            <li>Rule 10 - on opposite tacks. Port keeps clear of starboard</li>
+            <li>Rule 11 - on same tack, overlapped. Windward keeps clear of leeward</li>
+            <li>Rule 12 - on same tack, not overlapped. Boat clear astern keeps clear of boat clear ahead</li>
+            <li>Rule 13 - while tacking. Until the boat is on close haul of her completed tack, she must keep clear of other boats (rules 10-12 do not apply)</li>
+            <li>Rule 14 - avoid collision</li>
+            <li>Rule 31 - don’t hit marks</li>
+        </ul>
+    </div>
+
+<div id="term-box" class="container">
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 10</div>
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 11</div>
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 12</div>
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 13</div>
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 14</div>
+    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 31</div>
+</div>
+
+<div id='top-row' class="container">
+    <div class="box wide-box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule13.jpg" alt="Rule 13">
+        <div id="drop-box4" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+</div>
+
+<div id='middle-row' class="container">
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule10.jpg" alt="Rule 10">
+        <div id="drop-box1" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule31.jpg" alt="Rule 31">
+        <div id="drop-box6" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+</div>
+
+<div id='bottom-row' class="container">
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule11.jpg" alt="Rule 11">
+        <div id="drop-box2" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule12.jpg" alt="Rule 12">
+        <div id="drop-box3" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="rule14.jpg" alt="Rule 14">
+        <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+</div>
+
+<script>
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.innerText);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var dropBox = event.target;
+        if (dropBox.classList.contains('drop-box')) {
+            dropBox.innerText = data;
+            if (data === dropBox.parentNode.querySelector('img').alt) {
+                dropBox.style.borderColor = 'green';
+            } else {
+                dropBox.style.borderColor = 'red';
+            }
+        } else if (dropBox.classList.contains('term-box')) {
+            var termBox = document.getElementById('term-box');
+            termBox.appendChild(event.target);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var termBox = document.getElementById('term-box');
+        termBox.addEventListener('dragstart', function(event) {
+            event.target.style.opacity = '0.4';
+        });
+        termBox.addEventListener('dragend', function(event) {
+            event.target.style.opacity = '1';
+        });
+    });
+</script>
+
+</body>
+</html>
