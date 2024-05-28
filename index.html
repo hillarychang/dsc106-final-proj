@@ -134,6 +134,7 @@
 </head>
 <body>
     <h1>Popularity of Olympic Sailing Over Time</h1>
+    <p>Sailing has been included in the Summer Olympics since 1896 (though those events, specifically, were cancelled due to weather) and have continued to grow as an event. At the 2024 Paris Olympics, there will be over 40 different sailing events with hundreds of competitors. Interested to see how sailing has grown as a sport over time? Use the slider below to see the changes in how many countries send a team and how many sailors each team has. The most from any team was 59 sailors from Norway in 1920.</p>
     <div style="display: inline-block; vertical-align: middle;">
         <label for="year">Select Year: </label>
         <input type="range" id="year" min="1908" max="2020" step="4" value="1908"/>
@@ -202,9 +203,15 @@
             })
             .catch(error => console.log(error));
     </script>
+    <p>To be added: tooltips for each country with the exact number of competitors representing that country.</p>
+    <p>If time allows: tooltip will include the names of each team's competitors. This will require a lot of extra data sourcing.</P>
+    <h1>Parts of the Boat and Their Functions</h1>
+    <p>To be added: svg of a basic dinghy with drawn paths to make mouseover boundaries that will highligh the part of the boat and create a tooltip with the name and function description.</p>
+    <p>This will likely take the longest as svg paths can be tricky to get exactly right.</p>
     <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
     <div>
         <b>Rule Descriptions:</b>
+        <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
         <ul>
             <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
             <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
@@ -256,5 +263,10 @@
         <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
 </div>
+<h1>Race Flags and Their Meanings</h1>
+<p>To be Added: Similar drag and drop game with basic race flags</p>
+<h1>Example Race Course</h1>
+<p>To be Added: Animation of a simple w4 course.</p>
+<p>If time permits: allow viewers to pick a boat, which will randomly complete a w4 course, abiding by all rules. Viewer will be shown their boat's course and final position.</p>
 </body>
 </html>
