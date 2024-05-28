@@ -28,7 +28,9 @@
     font-size: 14px;
     text-align: center;
     }
-
+    .map {
+        justify-content: center;
+    }
     .legend-item {
         display: inline-block;
         margin-bottom: 5px;
@@ -135,7 +137,7 @@
 <body>
     <h1>Popularity of Olympic Sailing Over Time</h1>
     <p>Sailing has been included in the Summer Olympics since 1896 (though those events, specifically, were cancelled due to weather) and have continued to grow as an event. At the 2024 Paris Olympics, there will be over 40 different sailing events with hundreds of competitors. Interested to see how sailing has grown as a sport over time? Use the slider below to see the changes in how many countries send a team and how many sailors each team has. The most from any team was 59 sailors from Norway in 1920.</p>
-    <div style="display: inline-block; vertical-align: middle;">
+    <div style="display: inline-block; vertical-align: middle; justify-content: center;" >
         <label for="year">Select Year: </label>
         <input type="range" id="year" min="1908" max="2020" step="4" value="1908"/>
         <span id="selectedYear">1908</span>
@@ -148,6 +150,7 @@
         <div class="legend-item"><span style="background-color:#2171b5;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 15</div>
         <div class="legend-item"><span style="background-color:#08306b;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 20+</div>
     </div>
+    <div class ="map">
     <script>
         const width = 900;
         const height = 600;
@@ -203,6 +206,7 @@
             })
             .catch(error => console.log(error));
     </script>
+    </div>
     <p>To be added: tooltips for each country with the exact number of competitors representing that country.</p>
     <p>If time allows: tooltip will include the names of each team's competitors. This will require a lot of extra data sourcing.</P>
     <h1>Parts of the Boat and Their Functions</h1>
