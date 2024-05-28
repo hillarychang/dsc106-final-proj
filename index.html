@@ -7,22 +7,32 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
 <style>
+    body {
+        background-color: antiquewhite;
+    }
+    
     .country {
             stroke: #000;
             stroke-width: 0.5px;
         }
-        .legend {
-            display: inline-block;
-            vertical-align: middle;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+    .legend {
+        display: inline-block;
+        vertical-align: middle;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 4px solid #ccc;
+        padding: 10px;
+    }
+    .legend p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    }
 
-        .legend-item {
-            display: inline-block;
-            margin-bottom: 5px;
-        }
+    .legend-item {
+        display: inline-block;
+        margin-bottom: 5px;
+    }
     .container {
         display: flex;
         flex-wrap: wrap;
@@ -95,6 +105,7 @@
         justify-content: center; 
         align-items: center;
         padding-bottom: 80px;
+        background-color: antiquewhite;
     }
     #middle-row {
         display: flex; 
@@ -108,16 +119,28 @@
         align-items: center;
         padding-bottom: 80px;
     }
+
+    ul {
+        font-family: Arial, sans-serif;
+        font-size: 16px; 
+        color: #333; 
+        line-height: 1.5;
+    }
+
+    ul li {
+        margin-bottom: 10px; 
+    }
 </style>
 </head>
 <body>
-    <h1>Olympic Sailing Over Time</h1>
+    <h1>Popularity of Olympic Sailing Over Time</h1>
     <div style="display: inline-block; vertical-align: middle;">
         <label for="year">Select Year: </label>
         <input type="range" id="year" min="1908" max="2020" step="4" value="1908"/>
         <span id="selectedYear">1908</span>
     </div>
     <div class="legend">
+        <p>Number of People Sent to The Olympics</p>
         <div class="legend-item"><span style="background-color:#f7fbff;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 0</div>
         <div class="legend-item"><span style="background-color:#c6dbef;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 5</div>
         <div class="legend-item"><span style="background-color:#6baed6;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 10</div>
@@ -179,16 +202,16 @@
             })
             .catch(error => console.log(error));
     </script>
-    <h1>Basic Racing Rules Matching Game</h1>
+    <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
     <div>
         <b>Rule Descriptions:</b>
         <ul>
-            <li>Rule 10 - on opposite tacks. Port keeps clear of starboard</li>
-            <li>Rule 11 - on same tack, overlapped. Windward keeps clear of leeward</li>
-            <li>Rule 12 - on same tack, not overlapped. Boat clear astern keeps clear of boat clear ahead</li>
-            <li>Rule 13 - while tacking. Until the boat is on close haul of her completed tack, she must keep clear of other boats (rules 10-12 do not apply)</li>
-            <li>Rule 14 - avoid collision</li>
-            <li>Rule 31 - don’t hit marks</li>
+            <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
+            <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
+            <li><b>Rule 12:</b> On the same tack, not overlapped. Boat clear astern keeps clear of the boat ahead.</li>
+            <li><b>Rule 13:</b> While tacking. Until the boat is on a close-hauled course after tacking, it must keep clear of other boats. (Rules 10-12 do not apply)</li>
+            <li><b>Rule 14:</b> Avoid collisions.</li>
+            <li><b>Rule 31:</b> Do not hit marks.</li>
         </ul>
     </div>
 
@@ -204,33 +227,33 @@
 <div id='top-row' class="container">
     <div class="box wide-box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule13.jpg" alt="Rule 13">
-        <div id="drop-box4" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box4" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
 </div>
 
 <div id='middle-row' class="container">
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule10.jpg" alt="Rule 10">
-        <div id="drop-box1" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box1" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule31.jpg" alt="Rule 31">
-        <div id="drop-box6" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box6" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
 </div>
 
 <div id='bottom-row' class="container">
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule11.jpg" alt="Rule 11">
-        <div id="drop-box2" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box2" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule12.jpg" alt="Rule 12">
-        <div id="drop-box3" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box3" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
     <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
         <img src="rule14.jpg" alt="Rule 14">
-        <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
 </div>
 </body>
