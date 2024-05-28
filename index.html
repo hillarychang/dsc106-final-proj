@@ -267,6 +267,42 @@
         <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
     </div>
 </div>
+<script>
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.innerText);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("text");
+        var dropBox = event.target;
+        if (dropBox.classList.contains('drop-box')) {
+            dropBox.innerText = data;
+            if (data === dropBox.parentNode.querySelector('img').alt) {
+                dropBox.style.borderColor = 'green';
+            } else {
+                dropBox.style.borderColor = 'red';
+            }
+        } else if (dropBox.classList.contains('term-box')) {
+            var termBox = document.getElementById('term-box');
+            termBox.appendChild(event.target);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var termBox = document.getElementById('term-box');
+        termBox.addEventListener('dragstart', function(event) {
+            event.target.style.opacity = '0.4';
+        });
+        termBox.addEventListener('dragend', function(event) {
+            event.target.style.opacity = '1';
+        });
+    });
+</script>
 <h1>Race Flags and Their Meanings</h1>
 <p>To be Added: Similar drag and drop game with basic race flags</p>
 <h1>Example Race Course</h1>
