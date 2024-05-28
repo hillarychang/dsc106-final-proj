@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drag and Drop Game for Basic Racing Rules</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Sailing with Interactive Visualizaitons</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
 <style>
+    .country {
+            stroke: #000;
+            stroke-width: 0.5px;
+        }
+        .legend {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .legend-item {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
     .container {
         display: flex;
         flex-wrap: wrap;
@@ -20,7 +38,6 @@
         margin: 15px;
         position: relative;
     }
-
 
     .drop-box {
         border: 2px solid black;
@@ -94,6 +111,75 @@
 </style>
 </head>
 <body>
+    <h1>Olympic Sailing Over Time</h1>
+    <div style="display: inline-block; vertical-align: middle;">
+        <label for="year">Select Year: </label>
+        <input type="range" id="year" min="1908" max="2020" step="4" value="1908"/>
+        <span id="selectedYear">1908</span>
+    </div>
+    <div class="legend">
+        <div class="legend-item"><span style="background-color:#f7fbff;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 0</div>
+        <div class="legend-item"><span style="background-color:#c6dbef;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 5</div>
+        <div class="legend-item"><span style="background-color:#6baed6;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 10</div>
+        <div class="legend-item"><span style="background-color:#2171b5;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 15</div>
+        <div class="legend-item"><span style="background-color:#08306b;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 20+</div>
+    </div>
+    <script>
+        const width = 900;
+        const height = 600;
+
+        const svg = d3.select('body').append('svg').attr('width', width).attr('height', height);
+
+        const projection = d3.geoMercator().scale(140).translate([width / 2, height / 1.4]);
+        const path = d3.geoPath(projection);
+
+        const g = svg.append('g');
+
+        // Load the map data
+        d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(data => {
+                const countries = topojson.feature(data, data.objects.countries);
+
+                g.selectAll('path')
+                    .data(countries.features)
+                    .enter().append('path')
+                    .attr('class', 'country')
+                    .attr('d', path);
+
+                // Load the competitors data
+                d3.json('competitors.json')
+                    .then(competitorsData => {
+                        // Create a color scale
+                        const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, 25]);
+
+                        // Function to update the map colors based on the selected year
+                        function updateMap(year) {
+                            g.selectAll('.country')
+                                .attr('fill', d => {
+                                    const countryName = d.properties.name;
+                                    const competitors = competitorsData[year][countryName] || 0;
+                                    return colorScale(competitors);
+                                });
+
+                            // Update selected year text
+                            document.getElementById('selectedYear').innerText = year;
+                        }
+
+                        // Add event listener to the slider
+                        const slider = document.getElementById('year');
+                        slider.addEventListener('input', function() {
+                            const year = this.value;
+                            updateMap(year);
+                        });
+
+                        // Initial map update
+                        updateMap(slider.value);
+                    })
+                    .catch(error => console.log(error));
+            })
+            .catch(error => console.log(error));
+    </script>
+    <h1>Basic Racing Rules Matching Game</h1>
     <div>
         <b>Rule Descriptions:</b>
         <ul>
@@ -147,43 +233,5 @@
         <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     </div>
 </div>
-
-<script>
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-
-    function drag(event) {
-        event.dataTransfer.setData("text", event.target.innerText);
-    }
-
-    function drop(event) {
-        event.preventDefault();
-        var data = event.dataTransfer.getData("text");
-        var dropBox = event.target;
-        if (dropBox.classList.contains('drop-box')) {
-            dropBox.innerText = data;
-            if (data === dropBox.parentNode.querySelector('img').alt) {
-                dropBox.style.borderColor = 'green';
-            } else {
-                dropBox.style.borderColor = 'red';
-            }
-        } else if (dropBox.classList.contains('term-box')) {
-            var termBox = document.getElementById('term-box');
-            termBox.appendChild(event.target);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var termBox = document.getElementById('term-box');
-        termBox.addEventListener('dragstart', function(event) {
-            event.target.style.opacity = '0.4';
-        });
-        termBox.addEventListener('dragend', function(event) {
-            event.target.style.opacity = '1';
-        });
-    });
-</script>
-
 </body>
 </html>

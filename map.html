@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Sailing Competitors Map</title>
+    <style>
+        svg {
+            display: block;
+            margin: auto;
+        }
+        #year-label {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map-container"></div>
+    <input type="range" min="1908" max="2020" value="1908" step="4" id="year-slider">
+    <div id="year-label">Year: 1908</div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        // Load data function
+        async function loadData() {
+            const geojson = await d3.json("https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json");
+            const olympicData = await d3.json("competitors.json"); // Replace with the path to your data file
+            return { geojson, olympicData };
+        }
+
+        loadData().then(({ geojson, olympicData }) => {
+            console.log("Olympic Data:", olympicData); // Debugging
+            console.log("GeoJSON Data:", geojson); // Debugging
+
+            // Define dimensions
+            const width = 800;
+            const height = 600;
+
+            // Append SVG to map-container
+            const svg = d3.select("#map-container").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            // Define projection and path
+            const projection = d3.geoMercator()
+                .scale(130)
+                .translate([width / 2, height / 1.5]);
+
+            const path = d3.geoPath().projection(projection);
+
+            // Create color scale
+            const colorScale = d3.scaleSequential(d3.interpolateBlues)
+                .domain([0, 50]); // Adjust the domain as per your data range
+
+            // Function to render the map
+            const renderMap = function(year) {
+                svg.selectAll("path").remove(); // Clear existing paths
+
+                svg.selectAll("path")
+                    .data(geojson.features)
+                    .enter().append("path")
+                    .attr("d", path)
+                    .attr("fill", function(d) {
+                        const country = d.properties.name;
+                        const competitors = olympicData[year] ? olympicData[year][country] : 0;
+                        return colorScale(competitors);
+                    })
+                    .attr("stroke", "white");
+            };
+
+            // Initial render
+            renderMap(1908);
+
+            // Update map on slider change
+            d3.select("#year-slider").on("input", function() {
+                const year = this.value;
+                d3.select("#year-label").text("Year: " + year);
+                renderMap(year);
+            });
+        }).catch(error => {
+            console.error("Error loading data: ", error);
+        });
+    </script>
+</body>
+</html>
