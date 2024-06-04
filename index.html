@@ -132,6 +132,19 @@
     ul li {
         margin-bottom: 10px; 
     }
+    .tooltip {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.75);
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    .highlight {
+        fill: yellow;
+    }
 </style>
 </head>
 <body>
@@ -150,19 +163,16 @@
         <div class="legend-item"><span style="background-color:#2171b5;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 15</div>
         <div class="legend-item"><span style="background-color:#08306b;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 20+</div>
     </div>
+    <div id="totalCompetitors">Total Competitors: 0</div>
     <div class ="map">
     <script>
         const width = 900;
         const height = 600;
-
         const svg = d3.select('body').append('svg').attr('width', width).attr('height', height);
-
         const projection = d3.geoMercator().scale(140).translate([width / 2, height / 1.4]);
         const path = d3.geoPath(projection);
-
         const g = svg.append('g');
 
-        // Load the map data
         d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
             .then(data => {
                 const countries = topojson.feature(data, data.objects.countries);
@@ -173,33 +183,27 @@
                     .attr('class', 'country')
                     .attr('d', path);
 
-                // Load the competitors data
+                
                 d3.json('competitors.json')
                     .then(competitorsData => {
-                        // Create a color scale
                         const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, 25]);
-
-                        // Function to update the map colors based on the selected year
                         function updateMap(year) {
+                            let totalCompetitors =0;
                             g.selectAll('.country')
                                 .attr('fill', d => {
                                     const countryName = d.properties.name;
                                     const competitors = competitorsData[year][countryName] || 0;
+                                    totalCompetitors += competitors;
                                     return colorScale(competitors);
                                 });
-
-                            // Update selected year text
                             document.getElementById('selectedYear').innerText = year;
+                            document.getElementById('totalCompetitors').innerText = `Total Competitors: ${totalCompetitors}`;
                         }
-
-                        // Add event listener to the slider
                         const slider = document.getElementById('year');
                         slider.addEventListener('input', function() {
                             const year = this.value;
                             updateMap(year);
                         });
-
-                        // Initial map update
                         updateMap(slider.value);
                     })
                     .catch(error => console.log(error));
@@ -210,12 +214,176 @@
     <p>To be added: tooltips for each country with the exact number of competitors representing that country.</p>
     <p>If time allows: tooltip will include the names of each team's competitors. This will require a lot of extra data sourcing.</P>
     <h1>Parts of the Boat and Their Functions</h1>
-    <p>To be added: svg of a basic dinghy with drawn paths to make mouseover boundaries that will highligh the part of the boat and create a tooltip with the name and function description.</p>
-    <p>This will likely take the longest as svg paths can be tricky to get exactly right.</p>
+    <p>Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
+    <svg id="dinghyDiagram" height = "45%" width = "45%" viewbox="0 0 224.896 198.438">
+        <text x="0" y="14.5" fill="black">Side View:</text>
+        <text x="120" y="14.5" fill="black">Top View:</text>
+        <rect id="stern"
+        width="77.206581"
+        height="31.162245"
+        x="141.15488"
+        y="157.94897"
+        fill = "lightgray"
+        stroke = "black" />
+        <rect id="port"
+        width="38.434708"
+        height="66.723846"
+        x="141.15488"
+        y="91.225128"
+        fill = "lightgray"
+        stroke = "black" />
+        <rect id="starboard"
+        width="38.434715"
+        height="66.723854"
+        x="179.92674"
+        y="91.225128"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="bow"
+        d="m 141.14257,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <rect id="mast"
+        width="2.986515"
+        height="143.0004"
+        x="92.229683"
+        y="7.7442203"
+        fill = "lightgray"
+        stroke = "black" />
+        <rect id="boom"
+        width="63.389854"
+        height="2.6219482"
+        x="28.730257"
+        y="120.76959"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="hull"
+        d="m 20.866125,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="rudder"
+        d="m 19.782695,144.38606 -0.316404,37.11317 c 0,0 -6.802701,13.94006 -8.70113,7.06055 -1.8984279,-6.87952 -6.1698916,-15.20735 0.316405,-43.81164 v 0 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <rect id="tiller"
+        width="24.837769"
+        height="2.1724782"
+        x="19.782696"
+        y="144.38606"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="centerboard"
+        d="m 60.2825,168.21361 h 18.826078 c 0,0 1.42382,21.18166 -3.955057,27.15597 -5.378882,5.97432 -9.96675,-13.39694 -14.871021,-27.15597 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="vang"
+        d="m 92.192758,136.42084 -11.361517,-12.90725 -3.166189,-0.0748 14.523419,15.82165 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="main-sheet"
+        d="m 57.659801,123.38431 3.30725,24.52988 H 58.29991 l -3.520621,-24.52988 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="jib"
+        d="M 95.558337,45.696596 134.38836,147.63751 c 0,0 -35.169257,0 -34.662005,-4.69106 0.507255,-4.69108 -5.798962,-17.30457 -4.168018,-97.249854 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="jib-sheet"
+        d="m 99.92375,143.23222 -4.524195,4.85443 z"
+        fill = "lightgray"
+        stroke = "black" />
+        <path id="main"
+        d="m 29.427311,120.83746 62.776436,-0.0722 0.0028,-111.5058283 c 0,0 -37.022064,-0.8879495 -62.779231,111.5780083 z"
+        fill = "lightgray"
+        stroke = "black" />
+    </svg>     
+    <div id="tooltip" class="tooltip"></div>
+        <script>
+            const parts = {
+                "hull" : {
+                    name: "Hull",
+                    description: "The body of the boat. Most parts attach here. Sailor also sits on the top of the hull, called the deck."
+                },
+                "bow" : {
+                    name: "Bow",
+                    description: "The front, pointy end of the boat."
+                },
+                "stern" : {
+                    name: "Stern",
+                    description: "The back, flat end of the boat."
+                },
+                "port" : {
+                    name: "Port",
+                    description: "When looking towards the bow, this is the left side of the boat. Remember: left and port both have four letters."
+                },
+                "starboard" : {
+                    name: "Starboard",
+                    description: "When looking towards the bow, this is the right side of the boat."
+                },
+                "centerboard" : {
+                    name: "Centerboard",
+                    description: "This blade-shaped part of the boat sticks deep into the water and helps keep the boat upright by providing resistance against the moving water."
+                },
+                "mast" : {
+                    name: "Mast",
+                    description: "The tall pole in the middle of the boat that holds the boom and the main sail. The vang connects to this too."
+                },
+                "boom" : {
+                    name: "Boom",
+                    description: "This pole is parallel to the top of the boat. It hold the main sail. Remember to duck your head when tacking or gybing or you'll understand why this is called the boom (hint: it's the sound it makes when it hits your head)."
+                },
+                "main" : {
+                    name: "Main",
+                    description: "The large, center sail. This is responsible for most of the speed of the boat."
+                },
+                "jib" : {
+                    name: "Jib",
+                    description: "The smaller sail towards the front of the boat. This is responsible for fine tuning the speed and direction of the boat."
+                },
+                "rudder" : {
+                    name: "Rudder",
+                    description: "This blade-shaped part of the boat sticks into the water and acts like the axels and wheels of a car- it is responsible for turning the boat when pushed by the tiller."
+                },
+                "tiller" : {
+                    name: "Tiller",
+                    description: "Acts like the sailor's steering wheel, allowing them to change the direction of the boat."
+                },
+                "main-sheet" : {
+                    name: "Main Sheet",
+                    description: "Allows the sailor to control the main sail, determining how fast the boat goes. Sheets are the terms for lines (ropes) that bring a sail in or out."
+                },
+                "vang" : {
+                    name: "Vang",
+                    description:"A type of control line (rope). This brings down the boom to smooth out any wrinkles in the mainsail."
+                }
+            }
+            const boatsvg = document.getElementById('dinghyDiagram');
+            const tooltip = document.getElementById('tooltip');
+            boatsvg.addEventListener('mousemove', function(event) {
+                const target = event.target;
+                if (target.tagName ==='rect' || target.tagName === 'path') {
+                    const part=parts[target.id];
+                    if (part) {
+                        target.classList.add('highlight');
+                        tooltip.style.opacity = 1;
+                        tooltip.style.left = event.pageX + 10 + 'px';
+                tooltip.style.top = event.pageY + 10 + 'px';
+                tooltip.innerHTML = `<strong>${part.name}</strong><br>${part.description}`;
+                    }
+                }
+            });
+            boatsvg.addEventListener('mouseout', function(event) {
+                const target = event.target;
+                if (target.tagName ==='rect' || target.tagName === 'path') {
+                    target.classList.remove('highlight');
+                    tooltip.style.opacity = 0;
+                }
+            });
+        </script>
     <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
     <div>
-        <b>Rule Descriptions:</b>
         <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
+        <b>Rule Descriptions:</b>
         <ul>
             <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
             <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
