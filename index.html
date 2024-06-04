@@ -53,6 +53,7 @@
 
     .drop-box {
         border: 2px solid black;
+        fill: white;
         width: 150px; 
         height: 50px; 
         position: relative; 
@@ -470,8 +471,10 @@
             dropBox.innerText = data;
             if (data === dropBox.parentNode.querySelector('img').alt) {
                 dropBox.style.borderColor = 'green';
+                dropBox.style.backgroundColor = 'lightgreen';
             } else {
                 dropBox.style.borderColor = 'red';
+                dropBox.style.backgroundColor = 'lightcoral';
             }
         } else if (dropBox.classList.contains('term-box')) {
             var termBox = document.getElementById('term-box');
