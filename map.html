@@ -56,7 +56,7 @@
             // Function to render the map
             const renderMap = function(year) {
                 svg.selectAll("path").remove(); // Clear existing paths
-
+                console.log("rendered");
                 svg.selectAll("path")
                     .data(geojson.features)
                     .enter().append("path")
