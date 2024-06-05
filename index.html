@@ -165,7 +165,7 @@
         <div class="legend-item"><span style="background-color:#08306b;">&nbsp;&nbsp;&nbsp;&nbsp;</span> 20+</div>
     </div>
     <div id="totalCompetitors">Total Competitors: 0</div>
-    <div class="tooltip" style="opacity:0;"></div>
+    <div class="tooltip" id = "maptooltip" style="opacity:0;"></div>
     <div class="map">
     <script>
         const width = 900;
@@ -174,7 +174,7 @@
         const projection = d3.geoMercator().scale(140).translate([width / 2, height / 1.4]);
         const path = d3.geoPath(projection);
         const g = svg.append('g');
-        const tooltip = d3.select('.tooltip');
+        const maptooltip = d3.select('.tooltip');
 
         d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
             .then(data => {
@@ -202,17 +202,17 @@
                                 .on('mouseover', (event, d) => {
                                     const countryName = d.properties.name;
                                     const competitors = competitorsData[year][countryName] || 0;
-                                    tooltip.style('opacity', 1)
+                                    maptooltip.style('opacity', 1)
                                         .style('left', event.pageX + 'px')
                                         .style('top', event.pageY + 'px')
                                         .html(`<strong>${countryName}</strong><br>Competitors: ${competitors}`);
                                 })
                                 .on('mousemove', (event) => {
-                                    tooltip.style('left', event.pageX + 'px')
+                                    maptooltip.style('left', event.pageX + 'px')
                                         .style('top', event.pageY + 'px');
                                 })
                                 .on('mouseout', () => {
-                                    tooltip.style('opacity', 0);
+                                    maptooltip.style('opacity', 0);
                                 });
 
                             document.getElementById('selectedYear').innerText = year;
@@ -316,7 +316,7 @@
         fill = "lightgray"
         stroke = "black" />
     </svg>     
-    <div id="tooltip" class="tooltip"></div>
+    <div class="tooltip" id = "boattooltip" style="opacity:0;"></div>
         <script>
             const parts = {
                 "hull" : {
@@ -377,17 +377,17 @@
                 }
             }
             const boatsvg = document.getElementById('dinghyDiagram');
-            declare tooltip = document.getElementById('tooltip');
+            const boattooltip = document.getElementById('boattooltip');
             boatsvg.addEventListener('mousemove', function(event) {
                 const target = event.target;
                 if (target.tagName ==='rect' || target.tagName === 'path') {
                     const part=parts[target.id];
                     if (part) {
                         target.classList.add('highlight');
-                        tooltip.style.opacity = 1;
-                        tooltip.style.left = event.pageX + 10 + 'px';
-                tooltip.style.top = event.pageY + 10 + 'px';
-                tooltip.innerHTML = `<strong>${part.name}</strong><br>${part.description}`;
+                        boattooltip.style.opacity = 1;
+                        boattooltip.style.left = event.pageX + 10 + 'px';
+                boattooltip.style.top = event.pageY + 10 + 'px';
+                boattooltip.innerHTML = `<strong>${part.name}</strong><br>${part.description}`;
                     }
                 }
             });
@@ -395,7 +395,7 @@
                 const target = event.target;
                 if (target.tagName ==='rect' || target.tagName === 'path') {
                     target.classList.remove('highlight');
-                    tooltip.style.opacity = 0;
+                    boattooltip.style.opacity = 0;
                 }
             });
         </script>
