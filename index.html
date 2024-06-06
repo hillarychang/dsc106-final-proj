@@ -879,7 +879,122 @@
 
             showSlides();
         </script>
+<h2>Fleet Racing Olympic Rankings</h2>
+<div class="podium-container" id="event-470-mixed">
+    <h3>Event 470 (Mixed)</h3>
+    <label for="dateSlider470">Select Date:</label>
+    <input type="range" id="dateSlider470" min="0" max="7" step="1" value="0">
+    <div id="dateValue470"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-470" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-470" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-470" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
 
+        <text id="second-place-text-470" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-470" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-470" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-470" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-470" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-470" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<div class="podium-container" id="event-49er-men">
+    <h3>Event 49er Men</h3>
+    <label for="dateSlider49erMen">Select Date:</label>
+    <input type="range" id="dateSlider49erMen" min="0" max="7" step="1" value="0">
+    <div id="dateValue49erMen"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-49erMen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-49erMen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-49erMen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+
+        <text id="second-place-text-49erMen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-49erMen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-49erMen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-49erMen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-49erMen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-49erMen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<div class="podium-container" id="event-49er-women">
+    <h3>Event 49er Women</h3>
+    <label for="dateSlider49erWomen">Select Date:</label>
+    <input type="range" id="dateSlider49erWomen" min="0" max="7" step="1" value="0">
+    <div id="dateValue49erWomen"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-49erWomen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-49erWomen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-49erWomen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+
+        <text id="second-place-text-49erWomen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-49erWomen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-49erWomen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-49erWomen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-49erWomen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-49erWomen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    const dates = [
+        "2024-05-21",
+        "2024-04-09",
+        "2024-03-12",
+        "2024-02-06",
+        "2023-12-12",
+        "2023-11-07",
+        "2023-10-17",
+        "2023-09-05"
+    ];
+
+    function updatePodium(eventId, date) {
+        d3.csv("podium_data.csv").then(function(data) {
+            const filteredData = data.filter(d => d.Date === date && d.Event === eventId);
+
+            d3.select("#first-place-text-" + eventId).text("");
+            d3.select("#first-place-name-" + eventId).text("");
+            d3.select("#second-place-text-" + eventId).text("");
+            d3.select("#second-place-name-" + eventId).text("");
+            d3.select("#third-place-text-" + eventId).text("");
+            d3.select("#third-place-name-" + eventId).text("");
+
+            filteredData.forEach(function(d) {
+                if (d.Position == 1) {
+                    d3.select("#first-place-text-" + eventId).text("1st Place");
+                    d3.select("#first-place-name-" + eventId).text(d.Name);
+                } else if (d.Position == 2) {
+                    d3.select("#second-place-text-" + eventId).text("2nd Place");
+                    d3.select("#second-place-name-" + eventId).text(d.Name);
+                } else if (d.Position == 3) {
+                    d3.select("#third-place-text-" + eventId).text("3rd Place");
+                    d3.select("#third-place-name-" + eventId).text(d.Name);
+                }
+            });
+        }).catch(function(error) {
+            console.error('Error loading the CSV file:', error);
+        });
+    }
+
+    function initializePodium(eventId, sliderId, dateValueId) {
+        const initialDate = dates[document.getElementById(sliderId).value];
+        document.getElementById(dateValueId).innerText = initialDate;
+
+        document.getElementById(sliderId).addEventListener("input", function() {
+            const selectedDate = dates[this.value];
+            document.getElementById(dateValueId).innerText = selectedDate;
+            updatePodium(eventId, selectedDate);
+        });
+
+        updatePodium(eventId, initialDate);
+    }
+
+    initializePodium("470", "dateSlider470", "dateValue470");
+    initializePodium("49erMen", "dateSlider49erMen", "dateValue49erMen");
+    initializePodium("49erWomen", "dateSlider49erWomen", "dateValue49erWomen");
+</script>
 <h1>Example Race Course</h1>
 <p>To be Added: Animation of a simple w4 course.</p>
 </body>
