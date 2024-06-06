@@ -146,6 +146,48 @@
     .highlight {
         fill: yellow;
     }
+    .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+        }
+    .slides {
+        display: none;
+        text-align: center;
+    }
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+    .text {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .flag {
+        width: 320px;
+        height: auto;
+        margin: 10px auto;
+    }
+    .medals, .total-medals {
+        font-size: 18px;
+    }
 </style>
 </head>
 <body>
@@ -492,6 +534,62 @@
             event.target.style.opacity = '1';
         });
     });
+</script>
+<div>
+    <h2>Top 10 Countries in Sailing</h2>
+    <div class="slideshow-container">
+    </div>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<script>
+    let slideIndex = 0;
+
+    function showSlides() {
+        const slides = document.getElementsByClassName("slides");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 3000);
+    }
+
+    function plusSlides(n) {
+        slideIndex += n - 1;
+        showSlides();
+    }
+
+    const data = [
+        { Rank: 1, Nation: "Great Britain (GBR)", Gold: 31, Silver: 21, Bronze: 12, Total: 64, Flag: "https://flagcdn.com/w320/gb.png" },
+        { Rank: 2, Nation: "United States (USA)", Gold: 19, Silver: 23, Bronze: 19, Total: 61, Flag: "https://flagcdn.com/w320/us.png" },
+        { Rank: 3, Nation: "Norway (NOR)", Gold: 17, Silver: 11, Bronze: 4, Total: 32, Flag: "https://flagcdn.com/w320/no.png" },
+        { Rank: 4, Nation: "France (FRA)", Gold: 15, Silver: 14, Bronze: 20, Total: 49, Flag: "https://flagcdn.com/w320/fr.png" },
+        { Rank: 5, Nation: "Denmark (DEN)", Gold: 13, Silver: 9, Bronze: 9, Total: 31, Flag: "https://flagcdn.com/w320/dk.png" },
+        { Rank: 6, Nation: "Australia (AUS)", Gold: 13, Silver: 8, Bronze: 8, Total: 29, Flag: "https://flagcdn.com/w320/au.png" },
+        { Rank: 7, Nation: "Spain (ESP)", Gold: 13, Silver: 5, Bronze: 3, Total: 21, Flag: "https://flagcdn.com/w320/es.png" },
+        { Rank: 8, Nation: "Sweden (SWE)", Gold: 10, Silver: 14, Bronze: 13, Total: 37, Flag: "https://flagcdn.com/w320/se.png" },
+        { Rank: 9, Nation: "New Zealand (NZL)", Gold: 9, Silver: 8, Bronze: 6, Total: 23, Flag: "https://flagcdn.com/w320/nz.png" },
+        { Rank: 10, Nation: "Netherlands (NED)", Gold: 8, Silver: 9, Bronze: 9, Total: 26, Flag: "https://flagcdn.com/w320/nl.png" }
+    ];
+
+    const container = document.querySelector('.slideshow-container');
+
+    data.forEach(d => {
+        const slide = document.createElement('div');
+        slide.classList.add('slides');
+        slide.innerHTML = `
+            <div class="text">${d.Rank}. ${d.Nation}</div>
+            <img src="${d.Flag}" alt="${d.Nation} Flag" class="flag">
+            <div class="medals">Gold: ${d.Gold}, Silver: ${d.Silver}, Bronze: ${d.Bronze}</div>
+            <div class="total-medals">Total: ${d.Total}</div>
+        `;
+        container.appendChild(slide);
+    });
+
+    showSlides();
 </script>
 <h1>Race Flags and Their Meanings</h1>
 <p>To be Added: Similar drag and drop game with basic race flags</p>
