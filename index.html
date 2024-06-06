@@ -188,6 +188,27 @@
     .medals, .total-medals {
         font-size: 18px;
     }
+    .segment {
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
+        .highlight {
+            fill: yellow;
+        }
+        .hidden {
+            display: none;
+        }
+        .boat {
+            fill: blue;
+            stroke: black;
+            stroke-width: 1px;
+        }
+        .sail {
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
 </style>
 </head>
 <body>
@@ -442,6 +463,108 @@
             });
         </script>
         <p>To be added: SVG Points of Sail. How to make interactive? Animation perhaps?</p>
+        <h1 id="sailName" class="hidden">Point of Sail</h1>
+<select id="sailSelector">
+    <option value="">Select a Point of Sail</option>
+    <option value="no-go">No-Go</option>
+    <option value="close-hauled">Close Hauled</option>
+    <option value="beam-reach">Beam Reach</option>
+    <option value="broad-reach">Broad Reach</option>
+    <option value="run">Run</option>
+</select>
+
+<svg id="sailDiagram" width="500" height="500" viewBox="0 0 500 500">
+    <!-- Existing SVG content -->
+    <g id="wind-pizza">
+        <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250"/>
+        <path id="no-go" d="
+        M 250 250
+        L 426.78 73.22
+        A 250 250 0 0 0 73.22 73.22
+        L 250 250
+        Z
+        " fill="none" stroke="black" stroke-width="2"/>
+        <path id="run" d="
+        M 250 250
+        L 426.78 426.78
+        A 250 250 0 0 1 73.22 426.78
+        L 250 250
+        Z
+        " fill="none" stroke="black" stroke-width="2"/>
+        <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+        <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+        <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+        <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+        <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+        <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+
+    </g>
+
+    <!-- Define the boat -->
+    <g id="boat" class="hidden">
+        <polygon id="hull" points="250,240 260,250 250,260 240,250" class="boat"/>
+        <polygon id="sail" points="250,230 260,250 250,250" class="sail"/>
+    </g>
+</svg>
+
+<script>
+    const sailPositions = {
+        "close-hauled": "250,230 240,250 250,250",
+        "beam-reach": "250,230 260,250 250,250",
+        "broad-reach": "250,240 260,250 250,250",
+        "run": "250,250 260,250 250,250",
+        "no-go": "250,230 260,250 250,250"
+    };
+
+    const paths = {
+        "close-hauled": "M250,250 L418.54533,270.6909",
+        "beam-reach": "M250,250 L458.47684,375.39226",
+        "broad-reach": "M250,250 L386.47327,423.08746",
+        "run": "M250,250 L245.55075,454.44911",
+        "no-go": "M250,250 L250,250" // Boat stays at the center for no-go
+    };
+
+    document.getElementById('sailSelector').addEventListener('change', (e) => {
+        const selectedSail = e.target.value;
+        const boat = document.getElementById('boat');
+        const sail = document.getElementById('sail');
+        if (selectedSail) {
+            boat.classList.remove('hidden');
+            sail.setAttribute('points', sailPositions[selectedSail]);
+
+            const path = paths[selectedSail];
+            const regex = /M250,250 L(\d+),(\d+)/;
+            const match = path.match(regex);
+            if (match) {
+                const x = parseInt(match[1]);
+                const y = parseInt(match[2]);
+                boat.setAttribute('transform', 'translate(0, 0)');
+
+                // Animation
+                let progress = 0;
+                const duration = 2000; // 2 seconds
+                const startX = 0;
+                const startY = 0;
+                const deltaX = x - 250;
+                const deltaY = y - 250;
+
+                function animate() {
+                    progress += 10;
+                    const ratio = Math.min(progress / duration, 1);
+                    const translateX = startX + deltaX * ratio;
+                    const translateY = startY + deltaY * ratio;
+                    boat.setAttribute('transform', `translate(${translateX}, ${translateY})`);
+                    if (ratio < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+                animate();
+            }
+        } else {
+            boat.classList.add('hidden');
+        }
+    });
+</script>
     <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
     <div>
         <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
