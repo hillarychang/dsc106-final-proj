@@ -147,17 +147,15 @@
         fill: yellow;
     }
     .slideshow-container {
-    position: relative;
-    max-width: 1000px;
-    margin: auto;
-    }
-
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+        }
     .slides {
         display: none;
         text-align: center;
     }
-
-    .slideshow-container .prev, .slideshow-container .next {
+    .prev, .next {
         cursor: pointer;
         position: absolute;
         top: 50%;
@@ -171,64 +169,32 @@
         border-radius: 0 3px 3px 0;
         user-select: none;
     }
-
-    .slideshow-container .next {
+    .next {
         right: 0;
         border-radius: 3px 0 0 3px;
     }
-
-    .slideshow-container .prev {
-        left: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-    .slideshow-container .prev:hover, .slideshow-container .next:hover {
+    .prev:hover, .next:hover {
         background-color: rgba(0,0,0,0.8);
     }
-
     .text {
         font-size: 24px;
         font-weight: bold;
     }
-
     .flag {
         width: 320px;
         height: auto;
         margin: 10px auto;
     }
-
     .medals, .total-medals {
         font-size: 18px;
     }
-    
     .segment {
-            fill: white;
-            stroke: black;
-            stroke-width: 1px;
-    }
-    .highlight {
-        fill: yellow;
-    }
-    .hidden {
-        display: none;
-    }
-    .boat {
-        fill: blue;
-        stroke: black;
-        stroke-width: 1px;
-    }
-    .sail {
         fill: white;
         stroke: black;
         stroke-width: 1px;
     }
-    
-    .podium-container {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-    .podium {
-        margin-top: 20px;
+    .highlight {
+        fill: yellow;
     }
 </style>
 </head>
@@ -313,9 +279,9 @@
                 })
                 .catch(error => console.log(error));
         </script>
-        </div>
-        <p>Please note: in order to provide the best bird's eye view of the distribution of Olympic Sailing teams over time, a somewhat simplified map is utilized. Unfortunately, this means some nations are not represnted, most of these being island nations such as Aruba and Barbados. Additionally, the Olympics records nations as the team name they competed under, some of which have become obsolete through history, such as the Soviet Union and Czechoslovakia. Through data cleaning, we've done our best to properly attribute the number of competitors to the modern country they represent. </p>
-    <p>If time allows: tooltip will include the names of each team's competitors. This will require a lot of extra data sourcing.</p>
+    </div>
+    <p>Please note: in order to provide the best bird's eye view of the distribution of Olympic Sailing teams over time, a somewhat simplified map is utilized. Unfortunately, this means some nations are not represnted, most of these being island nations such as Aruba and Barbados. Additionally, the Olympics records nations as the team name they competed under, some of which have become obsolete through history, such as the Soviet Union and Czechoslovakia. Through data cleaning, we've done our best to properly attribute the number of competitors to the modern country they represent. </p>
+    
     <h1>Parts of the Boat and Their Functions</h1>
     <p>Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
     <svg id="dinghyDiagram" height = "45%" width = "45%" viewbox="0 0 224.896 198.438">
@@ -483,372 +449,438 @@
                 }
             });
         </script>
-        <p>To be added: SVG Points of Sail. How to make interactive? Animation perhaps?</p>
-    <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
-    <div>
-        <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
-        <b>Rule Descriptions:</b>
-        <ul>
-            <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
-            <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
-            <li><b>Rule 12:</b> On the same tack, not overlapped. Boat clear astern keeps clear of the boat ahead.</li>
-            <li><b>Rule 13:</b> While tacking. Until the boat is on a close-hauled course after tacking, it must keep clear of other boats. (Rules 10-12 do not apply)</li>
-            <li><b>Rule 14:</b> Avoid collisions.</li>
-            <li><b>Rule 31:</b> Do not hit marks.</li>
-        </ul>
-    </div>
+    
+    <h1>Points of Sail</h1>
+    <p>Assume the wind is coming from the top of the page and moving down.</p>
+    <svg id="s-close-haul" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Starboard Close Haul</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-45) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L-180, -180"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="p-close-haul" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Port Close Haul</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(45) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L180, -180"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="s-beam-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Starboard Beam Reach</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-90) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L-250, 0"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="p-beam-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Port Beam Reach</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(90) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L250, 0"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="s-broad-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+       <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Starboard Broad Reach</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-135) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L-180, 180"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="p-broad-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Port Broad Reach</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(135) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L180, 180"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="run" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">Run/Dead Downwind</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(180) translate(-250, -250)">
+        <animateMotion
+      path="M0,0 L0, 250"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite" />
+      </path>
+    </svg>
+    <svg id="no-go" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+        <g id="wind-pizza">
+            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <path id="no-go" d="
+            M 250 250
+            L 426.78 73.22
+            A 250 250 0 0 0 73.22 73.22
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <path id="run" d="
+            M 250 250
+            L 426.78 426.78
+            A 250 250 0 0 1 73.22 426.78
+            L 250 250
+            Z
+            " fill="none" stroke="black"/>
+            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
+            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <text x="5" y="580" font-size="3em" fill="black">No-Go Zone/In Irons</text>
+        </g>
+        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+        fill="lightblue" stroke="black"/>
+    </svg>
+ 
+    <h1>Basic Racing Rules Matching Game:</h1>
+        <div>
+            <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
+            <b>Rule Descriptions:</b>
+            <ul>
+                <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
+                <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
+                <li><b>Rule 12:</b> On the same tack, not overlapped. Boat clear astern keeps clear of the boat ahead.</li>
+                <li><b>Rule 13:</b> While tacking. Until the boat is on a close-hauled course after tacking, it must keep clear of other boats. (Rules 10-12 do not apply)</li>
+                <li><b>Rule 14:</b> Avoid collisions.</li>
+                <li><b>Rule 31:</b> Do not hit marks.</li>
+            </ul>
+        </div>
 
-<div id="term-box" class="container">
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 10</div>
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 11</div>
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 12</div>
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 13</div>
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 14</div>
-    <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 31</div>
-</div>
+        <div id="term-box" class="container">
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 10</div>
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 11</div>
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 12</div>
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 13</div>
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 14</div>
+            <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 31</div>
+        </div>
 
-<div id='top-row' class="container">
-    <div class="box wide-box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule13.jpg" alt="Rule 13">
-        <div id="drop-box4" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-</div>
+        <div id='top-row' class="container">
+            <div class="box wide-box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="rule13.jpg" alt="Rule 13">
+                <div id="drop-box4" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+            </div>
+        </div>
 
-<div id='middle-row' class="container">
-    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule10.jpg" alt="Rule 10">
-        <div id="drop-box1" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule31.jpg" alt="Rule 31">
-        <div id="drop-box6" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-</div>
+        <div id='middle-row' class="container">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="rule10.jpg" alt="Rule 10">
+                <div id="drop-box1" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+            </div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <img src="rule31.jpg" alt="Rule 31">
+                <div id="drop-box6" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+            </div>
+        </div>
 
-<div id='bottom-row' class="container">
-    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule11.jpg" alt="Rule 11">
-        <div id="drop-box2" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule12.jpg" alt="Rule 12">
-        <div id="drop-box3" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-    <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-        <img src="rule14.jpg" alt="Rule 14">
-        <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
-    </div>
-</div>
-<script>
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-
-    function drag(event) {
-        event.dataTransfer.setData("text", event.target.innerText);
-    }
-
-    function drop(event) {
-        event.preventDefault();
-        var data = event.dataTransfer.getData("text");
-        var dropBox = event.target;
-        if (dropBox.classList.contains('drop-box')) {
-            dropBox.innerText = data;
-            if (data === dropBox.parentNode.querySelector('img').alt) {
-                dropBox.style.borderColor = 'green';
-                dropBox.style.backgroundColor = 'lightgreen';
-            } else {
-                dropBox.style.borderColor = 'red';
-                dropBox.style.backgroundColor = 'lightcoral';
+        <div id='bottom-row' class="container">
+        <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="rule11.jpg" alt="Rule 11">
+            <div id="drop-box2" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+        </div>
+        <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="rule12.jpg" alt="Rule 12">
+            <div id="drop-box3" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+        </div>
+        <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="rule14.jpg" alt="Rule 14">
+            <div id="drop-box5" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)"  style="background-color: white;"></div>
+        </div>
+        </div>
+        <script>
+            function allowDrop(event) {
+                event.preventDefault();
             }
-        } else if (dropBox.classList.contains('term-box')) {
-            var termBox = document.getElementById('term-box');
-            termBox.appendChild(event.target);
-        }
-    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var termBox = document.getElementById('term-box');
-        termBox.addEventListener('dragstart', function(event) {
-            event.target.style.opacity = '0.4';
-        });
-        termBox.addEventListener('dragend', function(event) {
-            event.target.style.opacity = '1';
-        });
-    });
-</script>
-<div>
-    <h2>Top 10 Countries in Sailing</h2>
-    <div class="slideshow-container">
-    </div>
-</div>
+            function drag(event) {
+                event.dataTransfer.setData("text", event.target.innerText);
+            }
 
-<script>
-    let slideIndex = 0;
-
-    function showSlides() {
-        const slides = document.getElementsByClassName("slides");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) { slideIndex = 1 }
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 3000);
-    }
-
-    const data = [
-        { Rank: 1, Nation: "Great Britain (GBR)", Gold: 31, Silver: 21, Bronze: 12, Total: 64, Flag: "https://flagcdn.com/w320/gb.png" },
-        { Rank: 2, Nation: "United States (USA)", Gold: 19, Silver: 23, Bronze: 19, Total: 61, Flag: "https://flagcdn.com/w320/us.png" },
-        { Rank: 3, Nation: "Norway (NOR)", Gold: 17, Silver: 11, Bronze: 4, Total: 32, Flag: "https://flagcdn.com/w320/no.png" },
-        { Rank: 4, Nation: "France (FRA)", Gold: 15, Silver: 14, Bronze: 20, Total: 49, Flag: "https://flagcdn.com/w320/fr.png" },
-        { Rank: 5, Nation: "Denmark (DEN)", Gold: 13, Silver: 9, Bronze: 9, Total: 31, Flag: "https://flagcdn.com/w320/dk.png" },
-        { Rank: 6, Nation: "Australia (AUS)", Gold: 13, Silver: 8, Bronze: 8, Total: 29, Flag: "https://flagcdn.com/w320/au.png" },
-        { Rank: 7, Nation: "Spain (ESP)", Gold: 13, Silver: 5, Bronze: 3, Total: 21, Flag: "https://flagcdn.com/w320/es.png" },
-        { Rank: 8, Nation: "Sweden (SWE)", Gold: 10, Silver: 14, Bronze: 13, Total: 37, Flag: "https://flagcdn.com/w320/se.png" },
-        { Rank: 9, Nation: "New Zealand (NZL)", Gold: 9, Silver: 8, Bronze: 6, Total: 23, Flag: "https://flagcdn.com/w320/nz.png" },
-        { Rank: 10, Nation: "Netherlands (NED)", Gold: 8, Silver: 9, Bronze: 9, Total: 26, Flag: "https://flagcdn.com/w320/nl.png" }
-    ];
-
-    const container = document.querySelector('.slideshow-container');
-
-    data.forEach(d => {
-        const slide = document.createElement('div');
-        slide.classList.add('slides');
-        slide.innerHTML = `
-            <div class="text">${d.Rank}. ${d.Nation}</div>
-            <img src="${d.Flag}" alt="${d.Nation} Flag" class="flag">
-            <div class="medals">Gold: ${d.Gold}, Silver: ${d.Silver}, Bronze: ${d.Bronze}</div>
-            <div class="total-medals">Total: ${d.Total}</div>
-        `;
-        container.appendChild(slide);
-    });
-
-    showSlides();
-</script>
-<h2>Fleet Racing Olympic Rankings</h2>
-<div class="podium-container" id="event-470-mixed">
-    <h3>Event 470 (Mixed)</h3>
-    <label for="dateSlider470">Select Date:</label>
-    <input type="range" id="dateSlider470" min="0" max="7" step="1" value="0">
-    <div id="dateValue470"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-470" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-470" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-470" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-        
-        <text id="second-place-text-470" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-470" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-470" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-470" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-470" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-470" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<div class="podium-container" id="event-49er-men">
-    <h3>Event 49er Men</h3>
-    <label for="dateSlider49erMen">Select Date:</label>
-    <input type="range" id="dateSlider49erMen" min="0" max="7" step="1" value="0">
-    <div id="dateValue49erMen"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-49erMen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-49erMen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-49erMen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-        
-        <text id="second-place-text-49erMen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-49erMen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-49erMen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-49erMen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-49erMen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-49erMen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<div class="podium-container" id="event-49er-women">
-    <h3>Event 49er Women</h3>
-    <label for="dateSlider49erWomen">Select Date:</label>
-    <input type="range" id="dateSlider49erWomen" min="0" max="7" step="1" value="0">
-    <div id="dateValue49erWomen"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-49erWomen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-49erWomen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-49erWomen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-        
-        <text id="second-place-text-49erWomen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-49erWomen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-49erWomen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-49erWomen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-49erWomen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-49erWomen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script>
-    const dates = [
-        "2024-05-21",
-        "2024-04-09",
-        "2024-03-12",
-        "2024-02-06",
-        "2023-12-12",
-        "2023-11-07",
-        "2023-10-17",
-        "2023-09-05"
-    ];
-
-    function updatePodium(eventId, date) {
-        d3.csv("podium_data.csv").then(function(data) {
-            const filteredData = data.filter(d => d.Date === date && d.Event === eventId);
-
-            d3.select("#first-place-text-" + eventId).text("");
-            d3.select("#first-place-name-" + eventId).text("");
-            d3.select("#second-place-text-" + eventId).text("");
-            d3.select("#second-place-name-" + eventId).text("");
-            d3.select("#third-place-text-" + eventId).text("");
-            d3.select("#third-place-name-" + eventId).text("");
-
-            filteredData.forEach(function(d) {
-                if (d.Position == 1) {
-                    d3.select("#first-place-text-" + eventId).text("1st Place");
-                    d3.select("#first-place-name-" + eventId).text(d.Name);
-                } else if (d.Position == 2) {
-                    d3.select("#second-place-text-" + eventId).text("2nd Place");
-                    d3.select("#second-place-name-" + eventId).text(d.Name);
-                } else if (d.Position == 3) {
-                    d3.select("#third-place-text-" + eventId).text("3rd Place");
-                    d3.select("#third-place-name-" + eventId).text(d.Name);
+            function drop(event) {
+                event.preventDefault();
+                var data = event.dataTransfer.getData("text");
+                var dropBox = event.target;
+                if (dropBox.classList.contains('drop-box')) {
+                    dropBox.innerText = data;
+                    if (data === dropBox.parentNode.querySelector('img').alt) {
+                        dropBox.style.borderColor = 'green';
+                        dropBox.style.backgroundColor = 'lightgreen';
+                    } else {
+                        dropBox.style.borderColor = 'red';
+                        dropBox.style.backgroundColor = 'lightcoral';
+                    }
+                } else if (dropBox.classList.contains('term-box')) {
+                    var termBox = document.getElementById('term-box');
+                    termBox.appendChild(event.target);
                 }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var termBox = document.getElementById('term-box');
+                termBox.addEventListener('dragstart', function(event) {
+                    event.target.style.opacity = '0.4';
+                });
+                termBox.addEventListener('dragend', function(event) {
+                    event.target.style.opacity = '1';
+                });
             });
-        }).catch(function(error) {
-            console.error('Error loading the CSV file:', error);
-        });
-    }
+        </script>
 
-    function initializePodium(eventId, sliderId, dateValueId) {
-        const initialDate = dates[document.getElementById(sliderId).value];
-        document.getElementById(dateValueId).innerText = initialDate;
+    <h1>Race Flags and Their Meanings</h1>
+    <p>To be Added: Similar drag and drop game with basic race flags</p>
 
-        document.getElementById(sliderId).addEventListener("input", function() {
-            const selectedDate = dates[this.value];
-            document.getElementById(dateValueId).innerText = selectedDate;
-            updatePodium(eventId, selectedDate);
-        });
+    <h1>Top 10 Countries in Sailing Based on Olympic Medals</h1>
+        <div>
+            <div class="slideshow-container">
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <script>
+            let slideIndex = 0;
 
-        updatePodium(eventId, initialDate);
-    }
+            function showSlides() {
+                const slides = document.getElementsByClassName("slides");
+                for (let i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                slideIndex++;
+                if (slideIndex > slides.length) {slideIndex = 1}
+                slides[slideIndex - 1].style.display = "block";
+                setTimeout(showSlides, 3000);
+            }
 
-    initializePodium("470", "dateSlider470", "dateValue470");
-    initializePodium("49erMen", "dateSlider49erMen", "dateValue49erMen");
-    initializePodium("49erWomen", "dateSlider49erWomen", "dateValue49erWomen");
-</script>
+            function plusSlides(n) {
+                slideIndex += n - 1;
+                showSlides();
+            }
 
-<h1>Race Flags and Their Meanings</h1>
-<p>To be Added: Similar drag and drop game with basic race flags</p>
+            const data = [
+                { Rank: 1, Nation: "Great Britain (GBR)", Gold: 31, Silver: 21, Bronze: 12, Total: 64, Flag: "https://flagcdn.com/w320/gb.png" },
+                { Rank: 2, Nation: "United States (USA)", Gold: 19, Silver: 23, Bronze: 19, Total: 61, Flag: "https://flagcdn.com/w320/us.png" },
+                { Rank: 3, Nation: "Norway (NOR)", Gold: 17, Silver: 11, Bronze: 4, Total: 32, Flag: "https://flagcdn.com/w320/no.png" },
+                { Rank: 4, Nation: "France (FRA)", Gold: 15, Silver: 14, Bronze: 20, Total: 49, Flag: "https://flagcdn.com/w320/fr.png" },
+                { Rank: 5, Nation: "Denmark (DEN)", Gold: 13, Silver: 9, Bronze: 9, Total: 31, Flag: "https://flagcdn.com/w320/dk.png" },
+                { Rank: 6, Nation: "Australia (AUS)", Gold: 13, Silver: 8, Bronze: 8, Total: 29, Flag: "https://flagcdn.com/w320/au.png" },
+                { Rank: 7, Nation: "Spain (ESP)", Gold: 13, Silver: 5, Bronze: 3, Total: 21, Flag: "https://flagcdn.com/w320/es.png" },
+                { Rank: 8, Nation: "Sweden (SWE)", Gold: 10, Silver: 14, Bronze: 13, Total: 37, Flag: "https://flagcdn.com/w320/se.png" },
+                { Rank: 9, Nation: "New Zealand (NZL)", Gold: 9, Silver: 8, Bronze: 6, Total: 23, Flag: "https://flagcdn.com/w320/nz.png" },
+                { Rank: 10, Nation: "Netherlands (NED)", Gold: 8, Silver: 9, Bronze: 9, Total: 26, Flag: "https://flagcdn.com/w320/nl.png" }
+            ];
+
+            const container = document.querySelector('.slideshow-container');
+
+            data.forEach(d => {
+                const slide = document.createElement('div');
+                slide.classList.add('slides');
+                slide.innerHTML = `
+                    <div class="text">${d.Rank}. ${d.Nation}</div>
+                    <img src="${d.Flag}" alt="${d.Nation} Flag" class="flag">
+                    <div class="medals">Gold: ${d.Gold}, Silver: ${d.Silver}, Bronze: ${d.Bronze}</div>
+                    <div class="total-medals">Total: ${d.Total}</div>
+                `;
+                container.appendChild(slide);
+            });
+
+            showSlides();
+        </script>
+
 <h1>Example Race Course</h1>
 <p>To be Added: Animation of a simple w4 course.</p>
-        <h1 id="sailName" class="hidden">Point of Sail</h1>
-<select id="sailSelector">
-    <option value="">Select a Point of Sail</option>
-    <option value="no-go">No-Go</option>
-    <option value="close-hauled">Close Hauled</option>
-    <option value="beam-reach">Beam Reach</option>
-    <option value="broad-reach">Broad Reach</option>
-    <option value="run">Run</option>
-</select>
-
-<svg id="sailDiagram" width="500" height="500" viewBox="0 0 500 500">
-    <!-- Existing SVG content -->
-    <g id="wind-pizza">
-        <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250"/>
-        <path id="no-go" d="
-        M 250 250
-        L 426.78 73.22
-        A 250 250 0 0 0 73.22 73.22
-        L 250 250
-        Z
-        " fill="none" stroke="black" stroke-width="2"/>
-        <path id="run" d="
-        M 250 250
-        L 426.78 426.78
-        A 250 250 0 0 1 73.22 426.78
-        L 250 250
-        Z
-        " fill="none" stroke="black" stroke-width="2"/>
-        <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-        <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-        <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-        <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-        <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-        <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-
-    </g>
-
-    <!-- Define the boat -->
-    <g id="boat" class="hidden">
-        <polygon id="hull" points="250,240 260,250 250,260 240,250" class="boat"/>
-        <polygon id="sail" points="250,230 260,250 250,250" class="sail"/>
-    </g>
-</svg>
-
-<script>
-    const sailPositions = {
-        "close-hauled": "250,230 240,250 250,250",
-        "beam-reach": "250,230 260,250 250,250",
-        "broad-reach": "250,240 260,250 250,250",
-        "run": "250,250 260,250 250,250",
-        "no-go": "250,230 260,250 250,250"
-    };
-
-    const paths = {
-        "close-hauled": "M250,250 L418.54533,270.6909",
-        "beam-reach": "M250,250 L458.47684,375.39226",
-        "broad-reach": "M250,250 L386.47327,423.08746",
-        "run": "M250,250 L245.55075,454.44911",
-        "no-go": "M250,250 L250,250" // Boat stays at the center for no-go
-    };
-
-    document.getElementById('sailSelector').addEventListener('change', (e) => {
-        const selectedSail = e.target.value;
-        const boat = document.getElementById('boat');
-        const sail = document.getElementById('sail');
-        if (selectedSail) {
-            boat.classList.remove('hidden');
-            sail.setAttribute('points', sailPositions[selectedSail]);
-
-            const path = paths[selectedSail];
-            const regex = /M250,250 L(\d+),(\d+)/;
-            const match = path.match(regex);
-            if (match) {
-                const x = parseInt(match[1]);
-                const y = parseInt(match[2]);
-                boat.setAttribute('transform', 'translate(0, 0)');
-
-                // Animation
-                let progress = 0;
-                const duration = 2000; // 2 seconds
-                const startX = 0;
-                const startY = 0;
-                const deltaX = x - 250;
-                const deltaY = y - 250;
-
-                function animate() {
-                    progress += 10;
-                    const ratio = Math.min(progress / duration, 1);
-                    const translateX = startX + deltaX * ratio;
-                    const translateY = startY + deltaY * ratio;
-                    boat.setAttribute('transform', `translate(${translateX}, ${translateY})`);
-                    if (ratio < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                }
-                animate();
-            }
-        } else {
-            boat.classList.add('hidden');
-        }
-    });
-</script>
-<p>If time permits: allow viewers to pick a boat, which will randomly complete a w4 course, abiding by all rules. Viewer will be shown their boat's course and final position.</p>
 </body>
 </html>
