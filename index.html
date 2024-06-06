@@ -147,15 +147,17 @@
         fill: yellow;
     }
     .slideshow-container {
-            position: relative;
-            max-width: 1000px;
-            margin: auto;
-        }
+    position: relative;
+    max-width: 1000px;
+    margin: auto;
+    }
+
     .slides {
         display: none;
         text-align: center;
     }
-    .prev, .next {
+
+    .slideshow-container .prev, .slideshow-container .next {
         cursor: pointer;
         position: absolute;
         top: 50%;
@@ -169,46 +171,42 @@
         border-radius: 0 3px 3px 0;
         user-select: none;
     }
-    .next {
+
+    .slideshow-container .next {
         right: 0;
         border-radius: 3px 0 0 3px;
     }
-    .prev:hover, .next:hover {
+
+    .slideshow-container .prev {
+        left: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .slideshow-container .prev:hover, .slideshow-container .next:hover {
         background-color: rgba(0,0,0,0.8);
     }
+
     .text {
         font-size: 24px;
         font-weight: bold;
     }
+
     .flag {
         width: 320px;
         height: auto;
         margin: 10px auto;
     }
+
     .medals, .total-medals {
         font-size: 18px;
     }
-    .segment {
-            fill: white;
-            stroke: black;
-            stroke-width: 1px;
+    .podium-container {
+            text-align: center;
+            margin-bottom: 50px;
         }
-        .highlight {
-            fill: yellow;
-        }
-        .hidden {
-            display: none;
-        }
-        .boat {
-            fill: blue;
-            stroke: black;
-            stroke-width: 1px;
-        }
-        .sail {
-            fill: white;
-            stroke: black;
-            stroke-width: 1px;
-        }
+    .podium {
+        margin-top: 20px;
+    }
 </style>
 </head>
 <body>
@@ -463,108 +461,6 @@
             });
         </script>
         <p>To be added: SVG Points of Sail. How to make interactive? Animation perhaps?</p>
-        <h1 id="sailName" class="hidden">Point of Sail</h1>
-<select id="sailSelector">
-    <option value="">Select a Point of Sail</option>
-    <option value="no-go">No-Go</option>
-    <option value="close-hauled">Close Hauled</option>
-    <option value="beam-reach">Beam Reach</option>
-    <option value="broad-reach">Broad Reach</option>
-    <option value="run">Run</option>
-</select>
-
-<svg id="sailDiagram" width="500" height="500" viewBox="0 0 500 500">
-    <!-- Existing SVG content -->
-    <g id="wind-pizza">
-        <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250"/>
-        <path id="no-go" d="
-        M 250 250
-        L 426.78 73.22
-        A 250 250 0 0 0 73.22 73.22
-        L 250 250
-        Z
-        " fill="none" stroke="black" stroke-width="2"/>
-        <path id="run" d="
-        M 250 250
-        L 426.78 426.78
-        A 250 250 0 0 1 73.22 426.78
-        L 250 250
-        Z
-        " fill="none" stroke="black" stroke-width="2"/>
-        <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-        <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-        <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-        <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-        <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-        <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-
-    </g>
-
-    <!-- Define the boat -->
-    <g id="boat" class="hidden">
-        <polygon id="hull" points="250,240 260,250 250,260 240,250" class="boat"/>
-        <polygon id="sail" points="250,230 260,250 250,250" class="sail"/>
-    </g>
-</svg>
-
-<script>
-    const sailPositions = {
-        "close-hauled": "250,230 240,250 250,250",
-        "beam-reach": "250,230 260,250 250,250",
-        "broad-reach": "250,240 260,250 250,250",
-        "run": "250,250 260,250 250,250",
-        "no-go": "250,230 260,250 250,250"
-    };
-
-    const paths = {
-        "close-hauled": "M250,250 L418.54533,270.6909",
-        "beam-reach": "M250,250 L458.47684,375.39226",
-        "broad-reach": "M250,250 L386.47327,423.08746",
-        "run": "M250,250 L245.55075,454.44911",
-        "no-go": "M250,250 L250,250" // Boat stays at the center for no-go
-    };
-
-    document.getElementById('sailSelector').addEventListener('change', (e) => {
-        const selectedSail = e.target.value;
-        const boat = document.getElementById('boat');
-        const sail = document.getElementById('sail');
-        if (selectedSail) {
-            boat.classList.remove('hidden');
-            sail.setAttribute('points', sailPositions[selectedSail]);
-
-            const path = paths[selectedSail];
-            const regex = /M250,250 L(\d+),(\d+)/;
-            const match = path.match(regex);
-            if (match) {
-                const x = parseInt(match[1]);
-                const y = parseInt(match[2]);
-                boat.setAttribute('transform', 'translate(0, 0)');
-
-                // Animation
-                let progress = 0;
-                const duration = 2000; // 2 seconds
-                const startX = 0;
-                const startY = 0;
-                const deltaX = x - 250;
-                const deltaY = y - 250;
-
-                function animate() {
-                    progress += 10;
-                    const ratio = Math.min(progress / duration, 1);
-                    const translateX = startX + deltaX * ratio;
-                    const translateY = startY + deltaY * ratio;
-                    boat.setAttribute('transform', `translate(${translateX}, ${translateY})`);
-                    if (ratio < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                }
-                animate();
-            }
-        } else {
-            boat.classList.add('hidden');
-        }
-    });
-</script>
     <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
     <div>
         <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
@@ -662,8 +558,6 @@
     <h2>Top 10 Countries in Sailing</h2>
     <div class="slideshow-container">
     </div>
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
 </div>
 
 <script>
@@ -675,14 +569,9 @@
             slides[i].style.display = "none";
         }
         slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}
+        if (slideIndex > slides.length) { slideIndex = 1 }
         slides[slideIndex - 1].style.display = "block";
         setTimeout(showSlides, 3000);
-    }
-
-    function plusSlides(n) {
-        slideIndex += n - 1;
-        showSlides();
     }
 
     const data = [
@@ -714,6 +603,123 @@
 
     showSlides();
 </script>
+<h2>Fleet Racing Olympic Rankings</h2>
+<div class="podium-container" id="event-470-mixed">
+    <h3>Event 470 (Mixed)</h3>
+    <label for="dateSlider470">Select Date:</label>
+    <input type="range" id="dateSlider470" min="0" max="7" step="1" value="0">
+    <div id="dateValue470"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-470" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-470" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-470" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+        
+        <text id="second-place-text-470" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-470" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-470" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-470" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-470" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-470" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<div class="podium-container" id="event-49er-men">
+    <h3>Event 49er Men</h3>
+    <label for="dateSlider49erMen">Select Date:</label>
+    <input type="range" id="dateSlider49erMen" min="0" max="7" step="1" value="0">
+    <div id="dateValue49erMen"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-49erMen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-49erMen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-49erMen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+        
+        <text id="second-place-text-49erMen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-49erMen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-49erMen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-49erMen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-49erMen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-49erMen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<div class="podium-container" id="event-49er-women">
+    <h3>Event 49er Women</h3>
+    <label for="dateSlider49erWomen">Select Date:</label>
+    <input type="range" id="dateSlider49erWomen" min="0" max="7" step="1" value="0">
+    <div id="dateValue49erWomen"></div>
+    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+        <rect id="second-place-49erWomen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+        <rect id="first-place-49erWomen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+        <rect id="third-place-49erWomen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+        
+        <text id="second-place-text-49erWomen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="second-place-name-49erWomen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="first-place-text-49erWomen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="first-place-name-49erWomen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+        <text id="third-place-text-49erWomen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+        <text id="third-place-name-49erWomen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+    </svg>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    const dates = [
+        "2024-05-21",
+        "2024-04-09",
+        "2024-03-12",
+        "2024-02-06",
+        "2023-12-12",
+        "2023-11-07",
+        "2023-10-17",
+        "2023-09-05"
+    ];
+
+    function updatePodium(eventId, date) {
+        d3.csv("podium_data.csv").then(function(data) {
+            const filteredData = data.filter(d => d.Date === date && d.Event === eventId);
+
+            d3.select("#first-place-text-" + eventId).text("");
+            d3.select("#first-place-name-" + eventId).text("");
+            d3.select("#second-place-text-" + eventId).text("");
+            d3.select("#second-place-name-" + eventId).text("");
+            d3.select("#third-place-text-" + eventId).text("");
+            d3.select("#third-place-name-" + eventId).text("");
+
+            filteredData.forEach(function(d) {
+                if (d.Position == 1) {
+                    d3.select("#first-place-text-" + eventId).text("1st Place");
+                    d3.select("#first-place-name-" + eventId).text(d.Name);
+                } else if (d.Position == 2) {
+                    d3.select("#second-place-text-" + eventId).text("2nd Place");
+                    d3.select("#second-place-name-" + eventId).text(d.Name);
+                } else if (d.Position == 3) {
+                    d3.select("#third-place-text-" + eventId).text("3rd Place");
+                    d3.select("#third-place-name-" + eventId).text(d.Name);
+                }
+            });
+        }).catch(function(error) {
+            console.error('Error loading the CSV file:', error);
+        });
+    }
+
+    function initializePodium(eventId, sliderId, dateValueId) {
+        const initialDate = dates[document.getElementById(sliderId).value];
+        document.getElementById(dateValueId).innerText = initialDate;
+
+        document.getElementById(sliderId).addEventListener("input", function() {
+            const selectedDate = dates[this.value];
+            document.getElementById(dateValueId).innerText = selectedDate;
+            updatePodium(eventId, selectedDate);
+        });
+
+        updatePodium(eventId, initialDate);
+    }
+
+    initializePodium("470", "dateSlider470", "dateValue470");
+    initializePodium("49erMen", "dateSlider49erMen", "dateValue49erMen");
+    initializePodium("49erWomen", "dateSlider49erWomen", "dateValue49erWomen");
+</script>
+
 <h1>Race Flags and Their Meanings</h1>
 <p>To be Added: Similar drag and drop game with basic race flags</p>
 <h1>Example Race Course</h1>
