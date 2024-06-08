@@ -254,13 +254,15 @@
                                             .style('left', event.pageX + 'px')
                                             .style('top', event.pageY + 'px')
                                             .html(`<strong>${countryName}</strong><br>Competitors: ${competitors}`);
+                                            d3.select(event.target).style('fill', 'orange');
                                     })
                                     .on('mousemove', (event) => {
                                         maptooltip.style('left', event.pageX + 'px')
                                             .style('top', event.pageY + 'px');
                                     })
-                                    .on('mouseout', () => {
+                                    .on('mouseout', (event, d) => {
                                         maptooltip.style('opacity', 0);
+                                        d3.select(event.target).style('fill', colorScale(d));
                                     });
         
                                 const totalCompetitors = competitorsData[year]["Total Competitors"] || 0;
