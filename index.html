@@ -6,197 +6,229 @@
     <title>Introduction to Sailing with Interactive Visualizaitons</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
-<style>
-    body {
-        background-color: antiquewhite;
-    }
-    
-    .country {
-        stroke: #000;
-        stroke-width: 0.5px;
-    }
-    .legend {
-        display: inline-block;
-        vertical-align: middle;
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 4px solid #ccc;
-        padding: 10px;
-    }
-    .legend p {
-        margin-top: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-        text-align: center;
-    }
-    .map {
-        justify-content: center;
-    }
-    .legend-item {
-        display: inline-block;
-        margin-bottom: 5px;
-    }
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: left;
-        align-items: center;
-        margin-top: 20px;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: antiquewhite;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .box {
-        border: 2px solid black;
-        width: 287px;
-        height: 287px;
-        margin: 15px;
-        position: relative;
-    }
+        h1, h2, h3 {
+            font-weight: 700;
+        }
 
-    .drop-box {
-        border: 2px solid black;
-        fill: white;
-        width: 150px; 
-        height: 50px; 
-        position: relative; 
-        bottom: -10px; 
-        left: 50%; 
-        transform: translateX(-50%);
-        text-align: center;
-        line-height: 50px;
-        font-size: 20px;
-    }
+        p, ul, li {
+            font-weight: 400;
+            font-size: 16px;
+        }
 
-    .term-box {
-        border: 2px solid black;
-        background-color: white;
-        width: 150px;
-        height: 50px;
-        margin: 10px;
-        position: relative;
-        cursor: pointer;
-        text-align: center;
-        line-height: 50px;
-        font-size: 20px;
-    }
+        .country {
+            stroke: #000;
+            stroke-width: 0.5px;
+        }
 
-    .wide-box {
-        width: 913px;
-        height: 289px; 
-        justify-content: center;
-    }
+        .legend {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 4px solid #ccc;
+            padding: 10px;
+        }
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 100px; 
-    }
+        .legend p {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
 
-    .row:last-child {
-        margin-bottom: 0; 
-    }
-    #term-box {
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        flex-wrap: wrap; 
-        padding: 10px; 
-        background-color: #a4c2f4ff; 
-        border-radius: 8px;
-    }
-    #top-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-        background-color: antiquewhite;
-    }
-    #middle-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-    }
-    #bottom-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-    }
+        .map {
+            justify-content: center;
+        }
 
-    ul {
-        font-family: Arial, sans-serif;
-        font-size: 16px; 
-        color: #333; 
-        line-height: 1.5;
-    }
+        .legend-item {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
 
-    ul li {
-        margin-bottom: 10px; 
-    }
-    .tooltip {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.75);
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-    .highlight {
-        fill: yellow;
-    }
-    .slideshow-container {
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .box {
+            border: 2px solid black;
+            width: 287px;
+            height: 287px;
+            margin: 15px;
+            position: relative;
+        }
+
+        .drop-box {
+            border: 2px solid black;
+            fill: white;
+            width: 150px;
+            height: 50px;
+            position: relative;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .term-box {
+            border: 2px solid black;
+            background-color: white;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .wide-box {
+            width: 913px;
+            height: 289px;
+            justify-content: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+
+        #term-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px;
+            background-color: #a4c2f4ff;
+            border-radius: 8px;
+        }
+
+        #top-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+            background-color: antiquewhite;
+        }
+
+        #middle-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        #bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        ul {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .highlight {
+            fill: yellow;
+        }
+
+        .slideshow-container {
             position: relative;
             max-width: 1000px;
             margin: auto;
         }
-    .slides {
-        display: none;
-        text-align: center;
-    }
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        padding: 16px;
-        margin-top: -22px;
-        color: black;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-    }
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
-    .text {
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .flag {
-        width: 320px;
-        height: auto;
-        margin: 10px auto;
-    }
-    .medals, .total-medals {
-        font-size: 18px;
-    }
-    .segment {
-        fill: white;
-        stroke: black;
-        stroke-width: 1px;
-    }
-    .highlight {
-        fill: yellow;
-    }
-</style>
+
+        .slides {
+            display: none;
+            text-align: center;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .flag {
+            width: 320px;
+            height: auto;
+            margin: 10px auto;
+        }
+
+        .medals, .total-medals {
+            font-size: 18px;
+        }
+
+        .segment {
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
+
+        .highlight {
+            fill: yellow;
+        }
+    </style>
 </head>
 <body>
     <h1>Popularity of Olympic Sailing Over Time</h1>
@@ -286,26 +318,23 @@
     
     <h1>Parts of the Boat and Their Functions</h1>
     <p>Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
-    <svg id="dinghyDiagram" height="45%" width="45%" viewBox="0 0 224.896 198.438">
+    <svg id="dinghyDiagram" height="60%" width="60%" viewBox="0 0 300 198.438">
         <text x="0" y="14.5" fill="black">Side View:</text>
         <text x="120" y="14.5" fill="black">Top View:</text>
     
         <rect id="stern" width="77.206581" height="31.162245" x="141.15488" y="157.94897" fill="lightgray" stroke="black" />
         <rect id="port" width="38.434708" height="66.723846" x="141.15488" y="91.225128" fill="lightgray" stroke="black" />
         <rect id="starboard" width="38.434715" height="66.723854" x="179.92674" y="91.225128" fill="lightgray" stroke="black" />
-        
         <path id="bow" d="m 141.14257,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z" fill="lightgray" stroke="black" />
+
         <rect id="mast" width="2.986515" height="143.0004" x="92.229683" y="7.7442203" fill="lightgray" stroke="black" />
         <rect id="boom" width="63.389854" height="2.6219482" x="28.730257" y="120.76959" fill="lightgray" stroke="black" />
-        
         <path id="hull" d="m 20.866125,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z" fill="lightgray" stroke="black" />
         <path id="rudder" d="m 19.782695,144.38606 -0.316404,37.11317 c 0,0 -6.802701,13.94006 -8.70113,7.06055 -1.8984279,-6.87952 -6.1698916,-15.20735 0.316405,-43.81164 v 0 z" fill="lightgray" stroke="black" />
         <rect id="tiller" width="24.837769" height="2.1724782" x="19.782696" y="144.38606" fill="lightgray" stroke="black" />
-        
         <path id="centerboard" d="m 60.2825,168.21361 h 18.826078 c 0,0 1.42382,21.18166 -3.955057,27.15597 -5.378882,5.97432 -9.96675,-13.39694 -14.871021,-27.15597 z" fill="lightgray" stroke="black" />
         <path id="vang" d="m 92.192758,136.42084 -11.361517,-12.90725 -3.166189,-0.0748 14.523419,15.82165 z" fill="lightgray" stroke="black" />
         <path id="main-sheet" d="m 57.659801,123.38431 3.30725,24.52988 H 58.29991 l -3.520621,-24.52988 z" fill="lightgray" stroke="black" />
-        
         <path id="jib" d="M 95.558337,45.696596 134.38836,147.63751 c 0,0 -35.169257,0 -34.662005,-4.69106 0.507255,-4.69108 -5.798962,-17.30457 -4.168018,-97.249854 z" fill="lightgray" stroke="black" />
         <path id="jib-sheet" d="m 99.92375,143.23222 -4.524195,4.85443 z" fill="lightgray" stroke="black" />
         <path id="main" d="m 29.427311,120.83746 62.776436,-0.0722 0.0028,-111.5058283 c 0,0 -37.022064,-0.8879495 -62.779231,111.5780083 z" fill="lightgray" stroke="black" />
