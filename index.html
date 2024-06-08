@@ -425,37 +425,37 @@
     
     <h1>Points of Sail</h1>
     <p>Assume the wind is coming from the top of the page and moving down.</p>
-    <svg width="100%" height="100%" viewBox="0 0 1500 1800" xmlns="http://www.w3.org/2000/svg">
+    <svg width="100%" height="100%" viewBox="0 0 1800 2200" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
+            <ellipse id="circle" class="segment" cx="200" cy="200" rx="200" ry="200" fill="none"/>
             <path id="no-go" d="
-              M 250 250
-              L 426.78 73.22
-              A 250 250 0 0 0 73.22 73.22
-              L 250 250
+              M 200 200
+              L 341.42 58.58
+              A 200 200 0 0 0 58.58 58.58
+              L 200 200
               Z
               " fill="none" stroke="black"/>
             <path id="run" d="
-              M 250 250
-              L 426.78 426.78
-              A 250 250 0 0 1 73.22 426.78
-              L 250 250
+              M 200 200
+              L 341.42 341.42
+              A 200 200 0 0 1 58.58 341.42
+              L 200 200
               Z
               " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run-line" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
+            <line id="p-beam-reach" x1="200" y1="200" x2="400" y2="200" stroke="red" stroke-width="2" />
+            <line id="s-beam-reach" x1="200" y1="200" x2="0" y2="200" stroke="yellow" stroke-width="2" />
+            <line id="p-close-haul" x1="200" y1="200" x2="341.42" y2="58.58" stroke="blue" stroke-width="2" />
+            <line id="s-close-haul" x1="200" y1="200" x2="58.58" y2="58.58" stroke="green" stroke-width="2" />
+            <line id="p-broad-reach" x1="200" y1="200" x2="341.42" y2="341.42" stroke="orange" stroke-width="2" />
+            <line id="s-broad-reach" x1="200" y1="200" x2="58.58" y2="341.42" stroke="purple" stroke-width="2" />
+            <line id="run-line" x1="200" y1="200" x2="200" y2="400" stroke="pink" stroke-width="2"/>
           </g>
       
-          <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+          <path id="boat" d="m 169.63291,211.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
                 fill="lightblue" stroke="black">
             <animateMotion
-              path="M0,0 L0, -250"
+              path="M0,0 L0, -200"
               begin="0s"
               dur="3s"
               repeatCount="indefinite" />
@@ -463,51 +463,51 @@
         </defs>
       
 
-        <svg id="s-close-haul" x="0" y="0" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="s-close-haul" x="50" y="50" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Starboard Close Haul</text>
-          <use href="#boat" transform="translate(250, 250) rotate(-45) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Starboard Close Haul</text>
+          <use href="#boat" transform="translate(200, 200) rotate(-45) translate(-200, -200)"/>
         </svg>
       
-        <svg id="p-close-haul" x="33%" y="0" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="p-close-haul" x="650" y="50" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Port Close Haul</text>
-          <use href="#boat" transform="translate(250, 250) rotate(45) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Port Close Haul</text>
+          <use href="#boat" transform="translate(200, 200) rotate(45) translate(-200, -200)"/>
         </svg>
       
-        <svg id="s-beam-reach" x="66%" y="0" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="s-beam-reach" x="1250" y="50" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Starboard Beam Reach</text>
-          <use href="#boat" transform="translate(250, 250) rotate(-90) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Starboard Beam Reach</text>
+          <use href="#boat" transform="translate(200, 200) rotate(-90) translate(-200, -200)"/>
         </svg>
       
-        <svg id="p-beam-reach" x="0" y="33%" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="p-beam-reach" x="50" y="600" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Port Beam Reach</text>
-          <use href="#boat" transform="translate(250, 250) rotate(90) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Port Beam Reach</text>
+          <use href="#boat" transform="translate(200, 200) rotate(90) translate(-200, -200)"/>
         </svg>
       
-        <svg id="s-broad-reach" x="33%" y="33%" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="s-broad-reach" x="650" y="600" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Starboard Broad Reach</text>
-          <use href="#boat" transform="translate(250, 250) rotate(-135) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Starboard Broad Reach</text>
+          <use href="#boat" transform="translate(200, 200) rotate(-135) translate(-200, -200)"/>
         </svg>
       
-        <svg id="p-broad-reach" x="66%" y="33%" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="p-broad-reach" x="1250" y="600" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Port Broad Reach</text>
-          <use href="#boat" transform="translate(250, 250) rotate(135) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Port Broad Reach</text>
+          <use href="#boat" transform="translate(200, 200) rotate(135) translate(-200, -200)"/>
         </svg>
       
-        <svg id="run" x="0" y="66%" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="run" x="450" y="1250" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">Run/Dead Downwind</text>
-          <use href="#boat" transform="translate(250, 250) rotate(180) translate(-250, -250)"/>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">Run/Dead Downwind</text>
+          <use href="#boat" transform="translate(200, 200) rotate(180) translate(-200, -200)"/>
         </svg>
       
-        <svg id="no-go" x="33%" y="66%" width="33%" height="33%" viewBox="0 0 500 600">
+        <svg id="no-go" x="950" y="1250" width="500" height="500" viewBox="0 0 400 500">
           <use href="#wind-pizza"/>
-          <text x="250" y="580" font-size="3em" fill="black" text-anchor="middle">No-Go Zone/In Irons</text>
+          <text x="200" y="480" font-size="2em" fill="black" text-anchor="middle">No-Go Zone/In Irons</text>
           <use href="#boat"/>
         </svg>
       </svg>
