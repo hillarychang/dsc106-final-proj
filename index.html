@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: antiquewhite;
+            background-color: #faf3e0;
             font-family: 'Roboto', sans-serif;
         }
 
@@ -318,15 +318,15 @@
     
     <h1>Parts of the Boat and Their Functions</h1>
     <p>Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
-    <svg id="dinghyDiagram" height="60%" width="60%" viewBox="0 0 300 198.438">
-        <text x="0" y="14.5" fill="black">Side View:</text>
-        <text x="120" y="14.5" fill="black">Top View:</text>
+    <svg id="dinghyDiagram" height="100%" width="100%" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="20" fill="black">Side View:</text>
+        <text x="120" y="20" fill="black">Top View:</text>
     
         <rect id="stern" width="77.206581" height="31.162245" x="141.15488" y="157.94897" fill="lightgray" stroke="black" />
         <rect id="port" width="38.434708" height="66.723846" x="141.15488" y="91.225128" fill="lightgray" stroke="black" />
         <rect id="starboard" width="38.434715" height="66.723854" x="179.92674" y="91.225128" fill="lightgray" stroke="black" />
         <path id="bow" d="m 141.14257,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z" fill="lightgray" stroke="black" />
-
+    
         <rect id="mast" width="2.986515" height="143.0004" x="92.229683" y="7.7442203" fill="lightgray" stroke="black" />
         <rect id="boom" width="63.389854" height="2.6219482" x="28.730257" y="120.76959" fill="lightgray" stroke="black" />
         <path id="hull" d="m 20.866125,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z" fill="lightgray" stroke="black" />
@@ -339,6 +339,7 @@
         <path id="jib-sheet" d="m 99.92375,143.23222 -4.524195,4.85443 z" fill="lightgray" stroke="black" />
         <path id="main" d="m 29.427311,120.83746 62.776436,-0.0722 0.0028,-111.5058283 c 0,0 -37.022064,-0.8879495 -62.779231,111.5780083 z" fill="lightgray" stroke="black" />
     </svg>
+    
     <div class="tooltip" id = "boattooltip" style="opacity:0;"></div>
         <script>
             const parts = {
