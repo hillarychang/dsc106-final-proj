@@ -8,6 +8,10 @@
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        h1 {
+            font-size: 36px;
+        }
+
         body {
             background-color: #faf3e0;
             font-family: 'Roboto', sans-serif;
@@ -219,10 +223,61 @@
         .podium-container select, .podium-container input {
             margin: 10px 0;
         }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .learn-more-button {
+            background-color: #2171b5;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .learn-more-button:hover {
+            background-color: #1b5a8a;
+        }
+
+        #description-470, #description-49erMen, #description-49erWomen {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .learn-more-section {
+        text-align: center;
+        }
+
+        .learn-more-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .learn-more-button {
+            display: block;
+            margin: 0 auto 10px;
+            width: 200px;
+        }
+
+        .learn-more-description {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
     </style>
 </head>
 <body>
     <h1>Popularity of Olympic Sailing Over Time</h1>
+    <h3>By: Audra Spokas-Jaros, Hillary Chang, and Steven Luong</h3>
     <p>Sailing has been included in the Summer Olympics since 1896 (though those events, specifically, were cancelled due to weather) and have continued to grow as an event. At the 2024 Paris Olympics, there will be over 40 different sailing events with hundreds of competitors. Interested to see how sailing has grown as a sport over time? Use the slider below to see the changes in how many countries send a team and how many sailors each team has. The most from any team was 59 sailors from Norway in 1920.</p>
     <div style="display: inline-block; vertical-align: middle; justify-content: center;" >
         <label for="year">Select Year: </label>
@@ -313,13 +368,11 @@
         <text x="30" y="20" fill="black">Side View:</text>
         <text x="280" y="20" fill="black">Top View:</text>
     
-        <!-- Object One -->
         <rect id="stern" width="77.206581" height="31.162245" x="330" y="157.94897" fill="lightgray" stroke="black" />
         <rect id="port" width="38.434708" height="66.723846" x="330" y="91.225128" fill="lightgray" stroke="black" />
         <rect id="starboard" width="38.434715" height="66.723854" x="368.92674" y="91.225128" fill="lightgray" stroke="black" />
         <path id="bow" d="m 330,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z" fill="lightgray" stroke="black" />
     
-        <!-- Object Two -->
         <rect id="mast" width="2.986515" height="143.0004" x="130" y="7.7442203" fill="lightgray" stroke="black" />
         <rect id="boom" width="63.389854" height="2.6219482" x="67" y="120.76959" fill="lightgray" stroke="black" />
         <path id="hull" d="m 59,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z" fill="lightgray" stroke="black" />
@@ -457,7 +510,6 @@
           </path>
         </defs>
       
-        <!-- First Row -->
         <svg id="s-close-haul" x="225" y="50" width="300" height="400" viewBox="0 0 300 400">
           <use href="#wind-pizza"/>
           <text x="150" y="380" font-size="1.5em" fill="black" text-anchor="middle">Starboard Close Haul</text>
@@ -476,7 +528,6 @@
           <use href="#boat" transform="translate(150, 150) rotate(-90) translate(-150, -150)"/>
         </svg>
       
-        <!-- Second Row -->
         <svg id="p-beam-reach" x="225" y="500" width="300" height="400" viewBox="0 0 300 400">
           <use href="#wind-pizza"/>
           <text x="150" y="380" font-size="1.5em" fill="black" text-anchor="middle">Port Beam Reach</text>
@@ -495,7 +546,6 @@
           <use href="#boat" transform="translate(150, 150) rotate(135) translate(-150, -150)"/>
         </svg>
       
-        <!-- Third Row -->
         <svg id="run" x="450" y="950" width="300" height="400" viewBox="0 0 300 400">
           <use href="#wind-pizza"/>
           <text x="150" y="380" font-size="1.5em" fill="black" text-anchor="middle">Run/Dead Downwind</text>
@@ -607,8 +657,6 @@
             });
         </script>
 
-    <h1>Race Flags and Their Meanings</h1>
-    <p>To be Added: Similar drag and drop game with basic race flags</p>
 
     <h1>Top 10 Countries in Sailing Based on Olympic Medals</h1>
         <div>
@@ -686,7 +734,35 @@
             <text id="third-place-text" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
             <text id="third-place-name" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
         </svg>
+        <p id="description-470" style="display: none;">The 470 (Mixed) event is a dynamic and competitive sailing category that made its debut in the Olympic Games. This event features mixed-gender teams, requiring a balance of skills and coordination between male and female sailors. The 470 class is known for its tactical complexity and physical demands, making it a true test of sailing proficiency. Teams from around the world compete fiercely, aiming to demonstrate their prowess and achieve top rankings.</p>
+        <p id="description-49erMen" style="display: none;">The 49er Men’s event is one of the most thrilling and high-speed categories in Olympic sailing. The 49er skiff is renowned for its agility and speed, challenging sailors to exhibit exceptional boat handling and strategic acumen. Male sailors compete in this adrenaline-pumping event, where precision and quick decision-making are crucial. The 49er Men’s event consistently showcases some of the best sailing talents globally, with intense competition for the top spots.</p>
+        <p id="description-49erWomen" style="display: none;">Similar to its male counterpart, the 49er Women’s event features the high-performance 49er skiff, but with all-female crews. This event highlights the incredible skill and athleticism of women sailors as they navigate the fast-paced and technically demanding 49er skiff. The 49er Women’s event has gained significant popularity, providing a platform for female sailors to compete at the highest level and achieve Olympic glory. The competition is fierce, and the rankings reflect the dedication and expertise of the athletes involved.</p>    
     </div>
+    <h2>Learn More</h2>
+    <div class="button-container learn-more-section">
+        <div>
+            <div class="learn-more-title">World Sailing</div>
+            <a href="https://www.sailing.org/" target="_blank" class="learn-more-button">Visit World Sailing</a>
+            <p class="learn-more-description">World Sailing is the international governing body for the sport of sailing, overseeing the sport's regulations and promoting sailing worldwide.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">US Sailing</div>
+            <a href="https://www.ussailing.org/" target="_blank" class="learn-more-button">Visit US Sailing</a>
+            <p class="learn-more-description">US Sailing is the national governing body for sailing in the United States, dedicated to promoting sailing through education, competition, and equal opportunity.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">Royal Yachting Association</div>
+            <a href="https://www.rya.org.uk/" target="_blank" class="learn-more-button">Visit Royal Yachting Association</a>
+            <p class="learn-more-description">The Royal Yachting Association (RYA) is the UK’s national body for all forms of boating, providing training and representing the interests of sailors and boaters.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">Sail-World</div>
+            <a href="https://www.sail-world.com/" target="_blank" class="learn-more-button">Visit Sail-World</a>
+            <p class="learn-more-description">Sail-World is a leading online source for sailing news, offering coverage, analysis, and features on a wide range of sailing topics.</p>
+        </div>
+    </div>
+    
+    
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script>
@@ -754,5 +830,28 @@
 
         initializePodium();
     </script>
+
+<script>
+    function updateEventDescription() {
+        const eventSelector = document.getElementById('eventSelector');
+        const descriptions = {
+            '470': 'description-470',
+            '49erMen': 'description-49erMen',
+            '49erWomen': 'description-49erWomen'
+        };
+
+        for (const key in descriptions) {
+            document.getElementById(descriptions[key]).style.display = 'none';
+        }
+
+        document.getElementById(descriptions[eventSelector.value]).style.display = 'block';
+    }
+
+    document.getElementById('eventSelector').addEventListener('change', updateEventDescription);
+
+    document.addEventListener('DOMContentLoaded', updateEventDescription);
+</script>
+
+
 </body>
 </html>
