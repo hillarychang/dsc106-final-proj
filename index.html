@@ -6,147 +6,169 @@
     <title>Introduction to Sailing with Interactive Visualizaitons</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://d3js.org/topojson.v3.min.js"></script>
-<style>
-    body {
-        background-color: antiquewhite;
-    }
-    
-    .country {
-        stroke: #000;
-        stroke-width: 0.5px;
-    }
-    .legend {
-        display: inline-block;
-        vertical-align: middle;
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 4px solid #ccc;
-        padding: 10px;
-    }
-    .legend p {
-        margin-top: 0;
-        margin-bottom: 10px;
-        font-size: 14px;
-        text-align: center;
-    }
-    .map {
-        justify-content: center;
-    }
-    .legend-item {
-        display: inline-block;
-        margin-bottom: 5px;
-    }
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: left;
-        align-items: center;
-        margin-top: 20px;
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #faf3e0;
+            font-family: 'Roboto', sans-serif;
+        }
 
-    .box {
-        border: 2px solid black;
-        width: 287px;
-        height: 287px;
-        margin: 15px;
-        position: relative;
-    }
+        h1, h2, h3 {
+            font-weight: 700;
+        }
 
-    .drop-box {
-        border: 2px solid black;
-        fill: white;
-        width: 150px; 
-        height: 50px; 
-        position: relative; 
-        bottom: -10px; 
-        left: 50%; 
-        transform: translateX(-50%);
-        text-align: center;
-        line-height: 50px;
-        font-size: 20px;
-    }
+        p, ul, li {
+            font-weight: 400;
+            font-size: 16px;
+        }
 
-    .term-box {
-        border: 2px solid black;
-        background-color: white;
-        width: 150px;
-        height: 50px;
-        margin: 10px;
-        position: relative;
-        cursor: pointer;
-        text-align: center;
-        line-height: 50px;
-        font-size: 20px;
-    }
+        .country {
+            stroke: #000;
+            stroke-width: 0.5px;
+        }
 
-    .wide-box {
-        width: 913px;
-        height: 289px; 
-        justify-content: center;
-    }
+        .legend {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 4px solid #ccc;
+            padding: 10px;
+        }
 
-    .row {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-bottom: 100px; 
-    }
+        .legend p {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
 
-    .row:last-child {
-        margin-bottom: 0; 
-    }
-    #term-box {
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
-        flex-wrap: wrap; 
-        padding: 10px; 
-        background-color: #a4c2f4ff; 
-        border-radius: 8px;
-    }
-    #top-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-        background-color: antiquewhite;
-    }
-    #middle-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-    }
-    #bottom-row {
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        padding-bottom: 80px;
-    }
+        .map {
+            justify-content: center;
+        }
 
-    ul {
-        font-family: Arial, sans-serif;
-        font-size: 16px; 
-        color: #333; 
-        line-height: 1.5;
-    }
+        .legend-item {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
 
-    ul li {
-        margin-bottom: 10px; 
-    }
-    .tooltip {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.75);
-        color: white;
-        padding: 5px;
-        border-radius: 5px;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-    .highlight {
-        fill: yellow;
-    }
-    .slideshow-container {
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .box {
+            border: 2px solid black;
+            width: 287px;
+            height: 287px;
+            margin: 15px;
+            position: relative;
+        }
+
+        .drop-box {
+            border: 2px solid black;
+            fill: white;
+            width: 150px;
+            height: 50px;
+            position: relative;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .term-box {
+            border: 2px solid black;
+            background-color: white;
+            width: 150px;
+            height: 50px;
+            margin: 10px;
+            position: relative;
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .wide-box {
+            width: 913px;
+            height: 289px;
+            justify-content: center;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+
+        .row:last-child {
+            margin-bottom: 0;
+        }
+
+        #term-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px;
+            background-color: #a4c2f4ff;
+            border-radius: 8px;
+        }
+
+        #top-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        #middle-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        #bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        ul {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .highlight {
+            fill: yellow;
+        }
+
+        .slideshow-container {
             position: relative;
             max-width: 1000px;
             margin: auto;
@@ -189,13 +211,26 @@
         font-size: 18px;
     }
     .segment {
-        fill: white;
-        stroke: black;
-        stroke-width: 1px;
-    }
-    .highlight {
-        fill: yellow;
-    }
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
+        .highlight {
+            fill: yellow;
+        }
+        .hidden {
+            display: none;
+        }
+        .boat {
+            fill: blue;
+            stroke: black;
+            stroke-width: 1px;
+        }
+        .sail {
+            fill: white;
+            stroke: black;
+            stroke-width: 1px;
+        }
 </style>
 </head>
 <body>
@@ -254,13 +289,15 @@
                                             .style('left', event.pageX + 'px')
                                             .style('top', event.pageY + 'px')
                                             .html(`<strong>${countryName}</strong><br>Competitors: ${competitors}`);
+                                            d3.select(event.target).style('fill', 'orange');
                                     })
                                     .on('mousemove', (event) => {
                                         maptooltip.style('left', event.pageX + 'px')
                                             .style('top', event.pageY + 'px');
                                     })
-                                    .on('mouseout', () => {
+                                    .on('mouseout', (event,d) => {
                                         maptooltip.style('opacity', 0);
+                                        d3.select(event.target).style('fill', colorScale(d));
                                     });
         
                                 const totalCompetitors = competitorsData[year]["Total Competitors"] || 0;
@@ -283,89 +320,32 @@
     <p>Please note: in order to provide the best bird's eye view of the distribution of Olympic Sailing teams over time, a somewhat simplified map is utilized. Unfortunately, this means some nations are not represnted, most of these being island nations such as Aruba and Barbados. Additionally, the Olympics records nations as the team name they competed under, some of which have become obsolete through history, such as the Soviet Union and Czechoslovakia. Through data cleaning, we've done our best to properly attribute the number of competitors to the modern country they represent. </p>
     
     <h1>Parts of the Boat and Their Functions</h1>
-    <p>Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
-    <svg id="dinghyDiagram" height = "45%" width = "45%" viewbox="0 0 224.896 198.438">
-        <text x="0" y="14.5" fill="black">Side View:</text>
-        <text x="120" y="14.5" fill="black">Top View:</text>
-        <rect id="stern"
-        width="77.206581"
-        height="31.162245"
-        x="141.15488"
-        y="157.94897"
-        fill = "lightgray"
-        stroke = "black" />
-        <rect id="port"
-        width="38.434708"
-        height="66.723846"
-        x="141.15488"
-        y="91.225128"
-        fill = "lightgray"
-        stroke = "black" />
-        <rect id="starboard"
-        width="38.434715"
-        height="66.723854"
-        x="179.92674"
-        y="91.225128"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="bow"
-        d="m 141.14257,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <rect id="mast"
-        width="2.986515"
-        height="143.0004"
-        x="92.229683"
-        y="7.7442203"
-        fill = "lightgray"
-        stroke = "black" />
-        <rect id="boom"
-        width="63.389854"
-        height="2.6219482"
-        x="28.730257"
-        y="120.76959"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="hull"
-        d="m 20.866125,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="rudder"
-        d="m 19.782695,144.38606 -0.316404,37.11317 c 0,0 -6.802701,13.94006 -8.70113,7.06055 -1.8984279,-6.87952 -6.1698916,-15.20735 0.316405,-43.81164 v 0 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <rect id="tiller"
-        width="24.837769"
-        height="2.1724782"
-        x="19.782696"
-        y="144.38606"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="centerboard"
-        d="m 60.2825,168.21361 h 18.826078 c 0,0 1.42382,21.18166 -3.955057,27.15597 -5.378882,5.97432 -9.96675,-13.39694 -14.871021,-27.15597 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="vang"
-        d="m 92.192758,136.42084 -11.361517,-12.90725 -3.166189,-0.0748 14.523419,15.82165 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="main-sheet"
-        d="m 57.659801,123.38431 3.30725,24.52988 H 58.29991 l -3.520621,-24.52988 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="jib"
-        d="M 95.558337,45.696596 134.38836,147.63751 c 0,0 -35.169257,0 -34.662005,-4.69106 0.507255,-4.69108 -5.798962,-17.30457 -4.168018,-97.249854 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="jib-sheet"
-        d="m 99.92375,143.23222 -4.524195,4.85443 z"
-        fill = "lightgray"
-        stroke = "black" />
-        <path id="main"
-        d="m 29.427311,120.83746 62.776436,-0.0722 0.0028,-111.5058283 c 0,0 -37.022064,-0.8879495 -62.779231,111.5780083 z"
-        fill = "lightgray"
-        stroke = "black" />
-    </svg>     
+    <p class="caption2">Mouse over each gray part of the boat to learn that part's name and function! If you get lost, the part you're currently on will be highlighted in yellow.</p>
+    <svg id="dinghyDiagram" height="100%" width="100%" viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg">
+        <text x="30" y="20" fill="black">Side View:</text>
+        <text x="280" y="20" fill="black">Top View:</text>
+    
+        <!-- Object One -->
+        <rect id="stern" width="77.206581" height="31.162245" x="330" y="157.94897" fill="lightgray" stroke="black" />
+        <rect id="port" width="38.434708" height="66.723846" x="330" y="91.225128" fill="lightgray" stroke="black" />
+        <rect id="starboard" width="38.434715" height="66.723854" x="368.92674" y="91.225128" fill="lightgray" stroke="black" />
+        <path id="bow" d="m 330,91.155548 h 77.19797 c 0,0 -32.8207,-155.324104 -77.19797,0 z" fill="lightgray" stroke="black" />
+    
+        <!-- Object Two -->
+        <rect id="mast" width="2.986515" height="143.0004" x="130" y="7.7442203" fill="lightgray" stroke="black" />
+        <rect id="boom" width="63.389854" height="2.6219482" x="67" y="120.76959" fill="lightgray" stroke="black" />
+        <path id="hull" d="m 59,147.92063 115.188135,0.2697 c 0,0 -5.36719,14.83348 -19.40445,18.06987 -14.03727,3.2364 -88.352192,1.3485 -88.352192,1.3485 0,0 -12.385821,-1.88789 -7.431493,-19.68807 z" fill="lightgray" stroke="black" />
+        <path id="rudder" d="m 58,144.38606 -0.316404,37.11317 c 0,0 -6.802701,13.94006 -8.70113,7.06055 -1.8984279,-6.87952 -6.1698916,-15.20735 0.316405,-43.81164 v 0 z" fill="lightgray" stroke="black" />
+        <rect id="tiller" width="24.837769" height="2.1724782" x="58" y="144.38606" fill="lightgray" stroke="black" />
+        <path id="centerboard" d="m 98,168.21361 h 18.826078 c 0,0 1.42382,21.18166 -3.955057,27.15597 -5.378882,5.97432 -9.96675,-13.39694 -14.871021,-27.15597 z" fill="lightgray" stroke="black" />
+        <path id="vang" d="m 130,136.42084 -11.361517,-12.90725 -3.166189,-0.0748 14.523419,15.82165 z" fill="lightgray" stroke="black" />
+        <path id="main-sheet" d="m 96,123.38431 3.30725,24.52988 H 96.640109 l -3.520621,-24.52988 z" fill="lightgray" stroke="black" />
+        <path id="jib" d="M 134,45.696596 173,147.63751 c 0,0 -35.169257,0 -34.662005,-4.69106 0.507255,-4.69108 -5.798962,-17.30457 -4.168018,-97.249854 z" fill="lightgray" stroke="black" />
+        <path id="jib-sheet" d="m 137,143.23222 -4.524195,4.85443 z" fill="lightgray" stroke="black" />
+        <path id="main" d="m 67,120.83746 62.776436,-0.0722 0.0028,-111.5058283 c 0,0 -37.022064,-0.8879495 -62.779231,111.5780083 z" fill="lightgray" stroke="black" />
+    </svg>
+    
+    
     <div class="tooltip" id = "boattooltip" style="opacity:0;"></div>
         <script>
             const parts = {
@@ -449,297 +429,115 @@
                 }
             });
         </script>
-    
-    <h1>Points of Sail</h1>
-    <p>Assume the wind is coming from the top of the page and moving down.</p>
-    <svg id="s-close-haul" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Starboard Close Haul</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-45) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L-180, -180"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="p-close-haul" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Port Close Haul</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(45) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L180, -180"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="s-beam-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Starboard Beam Reach</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-90) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L-250, 0"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="p-beam-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Port Beam Reach</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(90) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L250, 0"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="s-broad-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-       <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Starboard Broad Reach</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(-135) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L-180, 180"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="p-broad-reach" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Port Broad Reach</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(135) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L180, 180"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="run" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">Run/Dead Downwind</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black" transform="translate(250, 250) rotate(180) translate(-250, -250)">
-        <animateMotion
-      path="M0,0 L0, 250"
-      begin="0s"
-      dur="3s"
-      repeatCount="indefinite" />
-      </path>
-    </svg>
-    <svg id="no-go" width="33%" height="33%" viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
-        <g id="wind-pizza">
-            <ellipse id="circle" class="segment" cx="250" cy="250" rx="250" ry="250" fill="none"/>
-            <path id="no-go" d="
-            M 250 250
-            L 426.78 73.22
-            A 250 250 0 0 0 73.22 73.22
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <path id="run" d="
-            M 250 250
-            L 426.78 426.78
-            A 250 250 0 0 1 73.22 426.78
-            L 250 250
-            Z
-            " fill="none" stroke="black"/>
-            <line id="p-beam-reach" x1="250" y1="250" x2="500" y2="250" stroke="red" stroke-width="2" />
-            <line id="s-beam-reach" x1="250" y1="250" x2="0" y2="250" stroke="yellow" stroke-width="2" />
-            <line id="p-close-haul" x1="250" y1="250" x2="426.78" y2="73.22" stroke="blue" stroke-width="2" />
-            <line id="s-close-haul" x1="250" y1="250" x2="73.22" y2="73.22" stroke="green" stroke-width="2" />
-            <line id="p-broad-reach" x1="250" y1="250" x2="426.78" y2="426.78" stroke="orange" stroke-width="2" />
-            <line id="s-broad-reach" x1="250" y1="250" x2="73.22" y2="426.78" stroke="purple" stroke-width="2" />
-            <line id="run" x1="250" y1="250" x2="250" y2="500" stroke="pink" stroke-width="2"/>
-            <text x="5" y="580" font-size="3em" fill="black">No-Go Zone/In Irons</text>
-        </g>
-        <path id="boat" d="m 219.63291,261.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
-        fill="lightblue" stroke="black"/>
-    </svg>
- 
-    <h1>Basic Racing Rules Matching Game:</h1>
-        <div>
-            <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
-            <b>Rule Descriptions:</b>
-            <ul>
-                <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
-                <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
-                <li><b>Rule 12:</b> On the same tack, not overlapped. Boat clear astern keeps clear of the boat ahead.</li>
-                <li><b>Rule 13:</b> While tacking. Until the boat is on a close-hauled course after tacking, it must keep clear of other boats. (Rules 10-12 do not apply)</li>
-                <li><b>Rule 14:</b> Avoid collisions.</li>
-                <li><b>Rule 31:</b> Do not hit marks.</li>
-            </ul>
-        </div>
+        <h1>Points of Sail</h1>
+        <p class="caption2">Assume the wind is coming from the top of the page and moving down.</p>
+        <svg width="100%" height="100%" viewBox="0 0 1800 1400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <g id="wind-pizza">
+                <ellipse id="circle" class="segment" cx="150" cy="150" rx="150" ry="150" fill="none"/>
+                <path id="no-go" d="
+                  M 150 150
+                  L 256.065 43.935
+                  A 150 150 0 0 0 43.935 43.935
+                  L 150 150
+                  Z
+                  " fill="none" stroke="black"/>
+                <path id="run" d="
+                  M 150 150
+                  L 256.065 256.065
+                  A 150 150 0 0 1 43.935 256.065
+                  L 150 150
+                  Z
+                  " fill="none" stroke="black"/>
+                <line id="p-beam-reach" x1="150" y1="150" x2="300" y2="150" stroke="red" stroke-width="2"/>
+                <line id="s-beam-reach" x1="150" y1="150" x2="0" y2="150" stroke="yellow" stroke-width="2"/>
+                <line id="p-close-haul" x1="150" y1="150" x2="256.065" y2="43.935" stroke="blue" stroke-width="2"/>
+                <line id="s-close-haul" x1="150" y1="150" x2="43.935" y2="43.935" stroke="green" stroke-width="2"/>
+                <line id="p-broad-reach" x1="150" y1="150" x2="256.065" y2="256.065" stroke="orange" stroke-width="2"/>
+                <line id="s-broad-reach" x1="150" y1="150" x2="43.935" y2="256.065" stroke="purple" stroke-width="2"/>
+                <line id="run-line" x1="150" y1="150" x2="150" y2="300" stroke="pink" stroke-width="2"/>
+              </g>
+          
+              <path id="boat" d="m 119.63291,161.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+                    fill="lightblue" stroke="black">
+                <animateMotion
+                  path="M0,0 L0, -150"
+                  begin="0s"
+                  dur="3s"
+                  repeatCount="indefinite"/>
+              </path>
+            </defs>
+          
+            <!-- First Row -->
+            <svg id="s-close-haul" x="225" y="50" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Starboard Close Haul</text>
+              <use href="#boat" transform="translate(150, 150) rotate(-45) translate(-150, -150)"/>
+            </svg>
+          
+            <svg id="p-close-haul" x="750" y="50" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Port Close Haul</text>
+              <use href="#boat" transform="translate(150, 150) rotate(45) translate(-150, -150)"/>
+            </svg>
+          
+            <svg id="s-beam-reach" x="1275" y="50" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Starboard Beam Reach</text>
+              <use href="#boat" transform="translate(150, 150) rotate(-90) translate(-150, -150)"/>
+            </svg>
+          
+            <!-- Second Row -->
+            <svg id="p-beam-reach" x="225" y="500" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Port Beam Reach</text>
+              <use href="#boat" transform="translate(150, 150) rotate(90) translate(-150, -150)"/>
+            </svg>
+          
+            <svg id="s-broad-reach" x="750" y="500" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Starboard Broad Reach</text>
+              <use href="#boat" transform="translate(150, 150) rotate(-135) translate(-150, -150)"/>
+            </svg>
+          
+            <svg id="p-broad-reach" x="1275" y="500" width="300" height="400" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Port Broad Reach</text>
+              <use href="#boat" transform="translate(150, 150) rotate(135) translate(-150, -150)"/>
+            </svg>
+          
+            <!-- Third Row -->
+            <svg id="run" x="450" y="950" width="300" height="450" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">Run/Dead Downwind</text>
+              <use href="#boat" transform="translate(150, 150) rotate(180) translate(-150, -150)"/>
+            </svg>
+          
+            <svg id="no-go" x="1050" y="950" width="300" height="450" viewBox="0 0 300 400">
+              <use href="#wind-pizza"/>
+              <text x="150" y="340" font-size="1.5em" fill="black" text-anchor="middle">No-Go Zone/In Irons</text>
+              <path id="boat" d="m 119.63291,161.77819 v 25.71498 h 49.44581 v -25.25579 c 0,0 -21.3516,-139.59568 -49.44581,-0.45919 z"
+                    fill="lightblue" stroke="black"/>
+            <text x="150" y="360" font-siZE="1em"fill="black" text-anchor="middle">In the No-Go Zone, the boat is unable to</text>
+            <text x="150" y="375" font-siZE="1em"fill="black" text-anchor="middle">move forward because the wind provides</text>
+            <text x="150" y="390" font-siZE="1em"fill="black" text-anchor="middle">equal pressure on both sides of the sail, </text>
+            <text x="150" y="405" font-siZE="1em"fill="black" text-anchor="middle">preventing any propulsion.</text>
+        </svg>
+          </svg>
+</script>
+    <h1>Basic Racing Rules Matching Game: Match the rule based on the image presented</h1>
+    <div>
+        <p>Read a brief description of the rules below, then drag the rule label to the corresponding diagram. The green boat is the boat that is not breaking a rule and the red boat is breaking a rule. The dropbox will outline in red if you are incorrect and green if you are correct. In each image, the blue arrow indicates the wind direction, the black dash line indicates the boat's course, and the orange circle indicates a mark/buoy.</p>
+        <b>Rule Descriptions:</b>
+        <ul>
+            <li><b>Rule 10:</b> On opposite tacks. Port keeps clear of starboard.</li>
+            <li><b>Rule 11:</b> On the same tack, overlapped. Windward boat keeps clear of leeward boat.</li>
+            <li><b>Rule 12:</b> On the same tack, not overlapped. Boat clear astern keeps clear of the boat ahead.</li>
+            <li><b>Rule 13:</b> While tacking. Until the boat is on a close-hauled course after tacking, it must keep clear of other boats. (Rules 10-12 do not apply)</li>
+            <li><b>Rule 14:</b> Avoid collisions.</li>
+            <li><b>Rule 31:</b> Do not hit marks.</li>
+        </ul>
+    </div>
 
         <div id="term-box" class="container">
             <div class="term-box" draggable="true" ondragstart="drag(event)">Rule 10</div>
