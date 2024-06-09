@@ -8,25 +8,25 @@
     <script src="https://d3js.org/topojson.v3.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        h1 {
+            font-size: 36px;
+        }
+
         body {
             background-color: #faf3e0;
             font-family: 'Roboto', sans-serif;
         }
-
         h1, h2, h3 {
             font-weight: 700;
         }
-
         p, ul, li {
             font-weight: 400;
             font-size: 16px;
         }
-
         .country {
             stroke: #000;
             stroke-width: 0.5px;
         }
-
         .legend {
             display: inline-block;
             vertical-align: middle;
@@ -34,23 +34,19 @@
             border: 4px solid #ccc;
             padding: 10px;
         }
-
         .legend p {
             margin-top: 0;
             margin-bottom: 10px;
             font-size: 14px;
             text-align: center;
         }
-
         .map {
             justify-content: center;
         }
-
         .legend-item {
             display: inline-block;
             margin-bottom: 5px;
         }
-
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -58,7 +54,6 @@
             align-items: center;
             margin-top: 20px;
         }
-
         .box {
             border: 2px solid black;
             width: 287px;
@@ -66,7 +61,6 @@
             margin: 15px;
             position: relative;
         }
-
         .drop-box {
             border: 2px solid black;
             fill: white;
@@ -80,7 +74,6 @@
             line-height: 50px;
             font-size: 20px;
         }
-
         .term-box {
             border: 2px solid black;
             background-color: white;
@@ -93,24 +86,20 @@
             line-height: 50px;
             font-size: 20px;
         }
-
         .wide-box {
             width: 913px;
             height: 289px;
             justify-content: center;
         }
-
         .row {
             display: flex;
             justify-content: space-between;
             width: 100%;
             margin-bottom: 100px;
         }
-
         .row:last-child {
             margin-bottom: 0;
         }
-
         #term-box {
             display: flex;
             justify-content: center;
@@ -120,39 +109,33 @@
             background-color: #a4c2f4ff;
             border-radius: 8px;
         }
-
         #top-row {
             display: flex;
             justify-content: center;
             align-items: center;
             padding-bottom: 80px;
         }
-
         #middle-row {
             display: flex;
             justify-content: center;
             align-items: center;
             padding-bottom: 80px;
         }
-
         #bottom-row {
             display: flex;
             justify-content: center;
             align-items: center;
             padding-bottom: 80px;
         }
-
         ul {
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
             color: #333;
             line-height: 1.5;
         }
-
         ul li {
             margin-bottom: 10px;
         }
-
         .tooltip {
             position: absolute;
             background: rgba(0, 0, 0, 0.75);
@@ -163,54 +146,31 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
-
         .highlight {
             fill: yellow;
         }
-
         .slideshow-container {
             position: relative;
             max-width: 1000px;
             margin: auto;
         }
-    .slides {
-        display: none;
-        text-align: center;
-    }
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        padding: 16px;
-        margin-top: -22px;
-        color: black;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
-    }
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-    .prev:hover, .next:hover {
-        background-color: rgba(0,0,0,0.8);
-    }
-    .text {
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .flag {
-        width: 320px;
-        height: auto;
-        margin: 10px auto;
-    }
-    .medals, .total-medals {
-        font-size: 18px;
-    }
-    .segment {
+        .slides {
+            display: none;
+            text-align: center;
+        }
+        .text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .flag {
+            width: 320px;
+            height: auto;
+            margin: 10px auto;
+        }
+        .medals, .total-medals {
+            font-size: 18px;
+        }
+        .segment {
             fill: white;
             stroke: black;
             stroke-width: 1px;
@@ -218,22 +178,79 @@
         .highlight {
             fill: yellow;
         }
-        .hidden {
-            display: none;
+        .caption2{
+            font-size: 18px;
+            font-weight: bold;
         }
-        .boat {
-            fill: blue;
-            stroke: black;
-            stroke-width: 1px;
+        .podium-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
         }
-        .sail {
-            fill: white;
-            stroke: black;
-            stroke-width: 1px;
+        .podium-container select, .podium-container input {
+            margin: 10px 0;
         }
-</style>
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .learn-more-button {
+            background-color: #2171b5;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .learn-more-button:hover {
+            background-color: #1b5a8a;
+        }
+
+        #description-470, #description-49erMen, #description-49erWomen {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .learn-more-section {
+        text-align: center;
+        }
+
+        .learn-more-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .learn-more-button {
+            display: block;
+            margin: 0 auto 10px;
+            width: 200px;
+        }
+
+        .learn-more-description {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+    </style>
 </head>
 <body>
+    <h1>Introduction to Sailing with Interactive Visualizaitons</h1>
+    <h2>By: Audra Spokas-Jaros, Hillary Chang, and Steven Luong</h2>
+    <h3>Created for UC San Diego DSC 106: Data Visualization in Spring 2024</h3>
+    <p>Recently, there’s been a rise in popularity of high-adrenaline spectator sports such as Formula 1, but one such sport has only seen the same popularity within a particularly niche community: sailing, specifically the Summer Olympic Sailing events and Sail Grand Prix. The goal of Sail GP is to make sailing more accessible to local communities, but 50 foot super yachts aren’t the easiest boats to start sailing. That’s where our site comes in!</p>
+    <p>We want to give the average user a basic understanding of a really complex topic that has a lot of moving parts. By showing users how sailing has expanded a competitive sport, rather than just a leisurely hobby, through the interactive visualization of Olympic Sailing teams over time, we invite people to join a growing community.</p>
+    <p>While there are plenty of resources available online to get people started, many are jargon-heavy and don’t allow users to easily relate definitions to visual examples. That’s where our experience differs: we use layman’s terms to describe complicated maneuvers and interactive elements for users to mentally connect terms and their explanations to better retain information before actually taking to the seas.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/h3URMucHTug?si=k13QUZnZIL85dosF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     <h1>Popularity of Olympic Sailing Over Time</h1>
     <p>Sailing has been included in the Summer Olympics since 1896 (though those events, specifically, were cancelled due to weather) and have continued to grow as an event. At the 2024 Paris Olympics, there will be over 40 different sailing events with hundreds of competitors. Interested to see how sailing has grown as a sport over time? Use the slider below to see the changes in how many countries send a team and how many sailors each team has. The most from any team was 59 sailors from Norway in 1920.</p>
     <div style="display: inline-block; vertical-align: middle; justify-content: center;" >
@@ -619,19 +636,13 @@
             });
         </script>
 
-    <h1>Race Flags and Their Meanings</h1>
-    <p>To be Added: Similar drag and drop game with basic race flags</p>
-
     <h1>Top 10 Countries in Sailing Based on Olympic Medals</h1>
         <div>
             <div class="slideshow-container">
             </div>
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
         <script>
             let slideIndex = 0;
-
             function showSlides() {
                 const slides = document.getElementsByClassName("slides");
                 for (let i = 0; i < slides.length; i++) {
@@ -642,12 +653,10 @@
                 slides[slideIndex - 1].style.display = "block";
                 setTimeout(showSlides, 3000);
             }
-
             function plusSlides(n) {
                 slideIndex += n - 1;
                 showSlides();
             }
-
             const data = [
                 { Rank: 1, Nation: "Great Britain (GBR)", Gold: 31, Silver: 21, Bronze: 12, Total: 64, Flag: "https://flagcdn.com/w320/gb.png" },
                 { Rank: 2, Nation: "United States (USA)", Gold: 19, Silver: 23, Bronze: 19, Total: 61, Flag: "https://flagcdn.com/w320/us.png" },
@@ -660,9 +669,7 @@
                 { Rank: 9, Nation: "New Zealand (NZL)", Gold: 9, Silver: 8, Bronze: 6, Total: 23, Flag: "https://flagcdn.com/w320/nz.png" },
                 { Rank: 10, Nation: "Netherlands (NED)", Gold: 8, Silver: 9, Bronze: 9, Total: 26, Flag: "https://flagcdn.com/w320/nl.png" }
             ];
-
             const container = document.querySelector('.slideshow-container');
-
             data.forEach(d => {
                 const slide = document.createElement('div');
                 slide.classList.add('slides');
@@ -674,126 +681,143 @@
                 `;
                 container.appendChild(slide);
             });
-
             showSlides();
         </script>
-<h2>Fleet Racing Olympic Rankings</h2>
-<div class="podium-container" id="event-470-mixed">
-    <h3>Event 470 (Mixed)</h3>
-    <label for="dateSlider470">Select Date:</label>
-    <input type="range" id="dateSlider470" min="0" max="7" step="1" value="0">
-    <div id="dateValue470"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-470" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-470" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-470" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-
-        <text id="second-place-text-470" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-470" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-470" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-470" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-470" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-470" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<div class="podium-container" id="event-49er-men">
-    <h3>Event 49er Men</h3>
-    <label for="dateSlider49erMen">Select Date:</label>
-    <input type="range" id="dateSlider49erMen" min="0" max="7" step="1" value="0">
-    <div id="dateValue49erMen"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-49erMen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-49erMen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-49erMen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-
-        <text id="second-place-text-49erMen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-49erMen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-49erMen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-49erMen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-49erMen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-49erMen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<div class="podium-container" id="event-49er-women">
-    <h3>Event 49er Women</h3>
-    <label for="dateSlider49erWomen">Select Date:</label>
-    <input type="range" id="dateSlider49erWomen" min="0" max="7" step="1" value="0">
-    <div id="dateValue49erWomen"></div>
-    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
-        <rect id="second-place-49erWomen" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
-        <rect id="first-place-49erWomen" x="150" y="50" width="100" height="200" fill="#ffd700"/>
-        <rect id="third-place-49erWomen" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
-
-        <text id="second-place-text-49erWomen" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="second-place-name-49erWomen" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="first-place-text-49erWomen" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="first-place-name-49erWomen" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
-        <text id="third-place-text-49erWomen" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
-        <text id="third-place-name-49erWomen" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
-    </svg>
-</div>
-
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script>
-    const dates = [
-        "2024-05-21",
-        "2024-04-09",
-        "2024-03-12",
-        "2024-02-06",
-        "2023-12-12",
-        "2023-11-07",
-        "2023-10-17",
-        "2023-09-05"
-    ];
-
-    function updatePodium(eventId, date) {
-        d3.csv("podium_data.csv").then(function(data) {
-            const filteredData = data.filter(d => d.Date === date && d.Event === eventId);
-
-            d3.select("#first-place-text-" + eventId).text("");
-            d3.select("#first-place-name-" + eventId).text("");
-            d3.select("#second-place-text-" + eventId).text("");
-            d3.select("#second-place-name-" + eventId).text("");
-            d3.select("#third-place-text-" + eventId).text("");
-            d3.select("#third-place-name-" + eventId).text("");
-
-            filteredData.forEach(function(d) {
-                if (d.Position == 1) {
-                    d3.select("#first-place-text-" + eventId).text("1st Place");
-                    d3.select("#first-place-name-" + eventId).text(d.Name);
-                } else if (d.Position == 2) {
-                    d3.select("#second-place-text-" + eventId).text("2nd Place");
-                    d3.select("#second-place-name-" + eventId).text(d.Name);
-                } else if (d.Position == 3) {
-                    d3.select("#third-place-text-" + eventId).text("3rd Place");
-                    d3.select("#third-place-name-" + eventId).text(d.Name);
-                }
+    <h1>Fleet Racing Olympic Rankings</h1>
+    <div class="podium-container">
+        <label for="eventSelector">Select Event:</label>
+        <select id="eventSelector">
+            <option value="470">Event 470 (Mixed)</option>
+            <option value="49erMen">Event 49er Men</option>
+            <option value="49erWomen">Event 49er Women</option>
+        </select>
+        <label for="dateSlider">Select Date:</label>
+        <input type="range" id="dateSlider" min="0" max="7" step="1" value="0">
+        <div id="dateValue"></div>
+        <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" class="podium">
+            <rect id="second-place" x="50" y="150" width="100" height="100" fill="#c0c0c0"/>
+            <rect id="first-place" x="150" y="50" width="100" height="200" fill="#ffd700"/>
+            <rect id="third-place" x="250" y="200" width="100" height="50" fill="#cd7f32"/>
+            <text id="second-place-text" x="100" y="140" fill="black" font-size="16" text-anchor="middle"></text>
+            <text id="second-place-name" x="100" y="175" fill="black" font-size="12" text-anchor="middle"></text>
+            <text id="first-place-text" x="200" y="40" fill="black" font-size="16" text-anchor="middle"></text>
+            <text id="first-place-name" x="200" y="150" fill="black" font-size="12" text-anchor="middle"></text>
+            <text id="third-place-text" x="300" y="190" fill="black" font-size="16" text-anchor="middle"></text>
+            <text id="third-place-name" x="300" y="225" fill="black" font-size="12" text-anchor="middle"></text>
+        </svg>
+        <p id="description-470" style="display: none;">The 470 (Mixed) event is a dynamic and competitive sailing category that made its debut in the Olympic Games. This event features mixed-gender teams, requiring a balance of skills and coordination between male and female sailors. The 470 class is known for its tactical complexity and physical demands, making it a true test of sailing proficiency. Teams from around the world compete fiercely, aiming to demonstrate their prowess and achieve top rankings.</p>
+        <p id="description-49erMen" style="display: none;">The 49er Men’s event is one of the most thrilling and high-speed categories in Olympic sailing. The 49er skiff is renowned for its agility and speed, challenging sailors to exhibit exceptional boat handling and strategic acumen. Male sailors compete in this adrenaline-pumping event, where precision and quick decision-making are crucial. The 49er Men’s event consistently showcases some of the best sailing talents globally, with intense competition for the top spots.</p>
+        <p id="description-49erWomen" style="display: none;">Similar to its male counterpart, the 49er Women’s event features the high-performance 49er skiff, but with all-female crews. This event highlights the incredible skill and athleticism of women sailors as they navigate the fast-paced and technically demanding 49er skiff. The 49er Women’s event has gained significant popularity, providing a platform for female sailors to compete at the highest level and achieve Olympic glory. The competition is fierce, and the rankings reflect the dedication and expertise of the athletes involved.</p>    
+    </div>
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        const dates = [
+            "2024-05-21",
+            "2024-04-09",
+            "2024-03-12",
+            "2024-02-06",
+            "2023-12-12",
+            "2023-11-07",
+            "2023-10-17",
+            "2023-09-05"
+        ];
+        function updatePodium(eventId, date) {
+            d3.csv("podium_data.csv").then(function(data) {
+                const filteredData = data.filter(d => d.Date === date && d.Event === eventId);
+                d3.select("#first-place-text").text("");
+                d3.select("#first-place-name").text("");
+                d3.select("#second-place-text").text("");
+                d3.select("#second-place-name").text("");
+                d3.select("#third-place-text").text("");
+                d3.select("#third-place-name").text("");
+                filteredData.forEach(function(d) {
+                    if (d.Position == 1) {
+                        d3.select("#first-place-text").text("1st Place");
+                        d3.select("#first-place-name").text(d.Name);
+                    } else if (d.Position == 2) {
+                        d3.select("#second-place-text").text("2nd Place");
+                        d3.select("#second-place-name").text(d.Name);
+                    } else if (d.Position == 3) {
+                        d3.select("#third-place-text").text("3rd Place");
+                        d3.select("#third-place-name").text(d.Name);
+                    }
+                });
+            }).catch(function(error) {
+                console.error('Error loading the CSV file:', error);
             });
-        }).catch(function(error) {
-            console.error('Error loading the CSV file:', error);
-        });
+        }
+        function initializePodium() {
+            const eventSelector = document.getElementById("eventSelector");
+            const slider = document.getElementById("dateSlider");
+            const dateValue = document.getElementById("dateValue");
+            const initialDate = dates[slider.value];
+            const initialEvent = eventSelector.value;
+            dateValue.innerText = initialDate;
+            updatePodium(initialEvent, initialDate);
+            eventSelector.addEventListener("change", function() {
+                const selectedEvent = this.value;
+                const selectedDate = dates[slider.value];
+                updatePodium(selectedEvent, selectedDate);
+            });
+            slider.addEventListener("input", function() {
+                const selectedDate = dates[this.value];
+                dateValue.innerText = selectedDate;
+                updatePodium(eventSelector.value, selectedDate);
+            });
+        }
+
+        initializePodium();
+    </script>
+
+<script>
+    function updateEventDescription() {
+        const eventSelector = document.getElementById('eventSelector');
+        const descriptions = {
+            '470': 'description-470',
+            '49erMen': 'description-49erMen',
+            '49erWomen': 'description-49erWomen'
+        };
+
+        for (const key in descriptions) {
+            document.getElementById(descriptions[key]).style.display = 'none';
+        }
+
+        document.getElementById(descriptions[eventSelector.value]).style.display = 'block';
     }
 
-    function initializePodium(eventId, sliderId, dateValueId) {
-        const initialDate = dates[document.getElementById(sliderId).value];
-        document.getElementById(dateValueId).innerText = initialDate;
+    document.getElementById('eventSelector').addEventListener('change', updateEventDescription);
 
-        document.getElementById(sliderId).addEventListener("input", function() {
-            const selectedDate = dates[this.value];
-            document.getElementById(dateValueId).innerText = selectedDate;
-            updatePodium(eventId, selectedDate);
-        });
-
-        updatePodium(eventId, initialDate);
-    }
-
-    initializePodium("470", "dateSlider470", "dateValue470");
-    initializePodium("49erMen", "dateSlider49erMen", "dateValue49erMen");
-    initializePodium("49erWomen", "dateSlider49erWomen", "dateValue49erWomen");
+    document.addEventListener('DOMContentLoaded', updateEventDescription);
 </script>
-<h1>Example Race Course</h1>
-<p>To be Added: Animation of a simple w4 course.</p>
+
+<h1>Learn More</h1>
+    <div class="button-container learn-more-section">
+        <div>
+            <div class="learn-more-title">World Sailing</div>
+            <a href="https://www.sailing.org/" target="_blank" class="learn-more-button">Visit World Sailing</a>
+            <p class="learn-more-description">World Sailing is the international governing body for the sport of sailing, overseeing the sport's regulations and promoting sailing worldwide.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">US Sailing</div>
+            <a href="https://www.ussailing.org/" target="_blank" class="learn-more-button">Visit US Sailing</a>
+            <p class="learn-more-description">US Sailing is the national governing body for sailing in the United States, dedicated to promoting sailing through education, competition, and equal opportunity.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">Royal Yachting Association</div>
+            <a href="https://www.rya.org.uk/" target="_blank" class="learn-more-button">Visit Royal Yachting Association</a>
+            <p class="learn-more-description">The Royal Yachting Association (RYA) is the UK’s national body for all forms of boating, providing training and representing the interests of sailors and boaters.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">Sail-World</div>
+            <a href="https://www.sail-world.com/" target="_blank" class="learn-more-button">Visit Sail-World</a>
+            <p class="learn-more-description">Sail-World is a leading online source for sailing news, offering coverage, analysis, and features on a wide range of sailing topics.</p>
+        </div>
+        <div>
+            <div class="learn-more-title">UC San Diego Sailing Team</div>
+            <a href="https://recreation.ucsd.edu/competitive-sports/sailing/" target="_blank" class="learn-more-button">Visit UCSD Sailing Team</a>
+            <p class="learn-more-description">UCSD has its very own sailing team, and it's completely open to beginners. Tryouts are held in the fall and spring, with no experience necessary. This team is open to all UCSD students and will broaden your sailing experiences with a variety of practices and regattas, all alongside an amazing group of friends and coaches.</p>
+        </div>
+    </div>
 </body>
 </html>
